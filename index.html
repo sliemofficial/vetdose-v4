@@ -27,21 +27,21 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; padding-bottom: 90px; }
 
-  /* HEADER */
   .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 20px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; }
   .logo { width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
   .header-title { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
   .header-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+  .header-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+  .sync-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; border: 1px solid; font-family: var(--mono); }
+  .sync-badge.live { border-color: var(--accent); color: var(--accent); background: rgba(74,240,176,0.1); }
+  .sync-badge.local { border-color: var(--muted); color: var(--muted); background: transparent; }
 
-  /* PAGES */
   .page { display: none; padding: 20px; }
   .page.active { display: block; }
 
-  /* CARDS */
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
   .card-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px; }
 
-  /* INPUTS */
   .field { margin-bottom: 14px; }
   .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.5px; }
   input, select, textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: var(--sans); font-size: 15px; padding: 11px 14px; outline: none; transition: border-color 0.2s; appearance: none; }
@@ -49,34 +49,45 @@
   input::placeholder { color: var(--muted); }
   select option { background: var(--surface2); }
 
-  /* SPECIES TOGGLE */
   .species-toggle { display: flex; gap: 8px; }
   .species-btn { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-align: center; }
   .species-btn.dog.active { background: rgba(74,159,240,0.15); border-color: var(--dog); color: var(--dog); }
   .species-btn.cat.active { background: rgba(192,132,252,0.15); border-color: var(--cat); color: var(--cat); }
   .species-btn.both.active { background: rgba(74,240,176,0.15); border-color: var(--both); color: var(--both); }
 
-  /* BUTTONS */
   .btn { width: 100%; padding: 14px; border-radius: 10px; border: none; font-family: var(--sans); font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px; }
   .btn-primary { background: var(--accent); color: var(--bg); }
   .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
   .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
   .btn-danger { background: rgba(240,74,106,0.15); color: var(--danger); border: 1px solid var(--danger); }
+  .btn-warn { background: rgba(240,168,74,0.15); color: var(--warn); border: 1px solid var(--warn); }
   .btn-sm { padding: 8px 14px; font-size: 13px; width: auto; }
   .btn-xs { padding: 5px 10px; font-size: 11px; width: auto; border-radius: 6px; }
 
-  /* RESULT BOX */
-  .result-box { background: linear-gradient(135deg, rgba(74,240,176,0.1), rgba(74,159,240,0.1)); border: 1px solid var(--accent); border-radius: var(--radius); padding: 20px; margin-top: 16px; display: none; }
+  .result-box { background: linear-gradient(135deg, rgba(74,240,176,0.08), rgba(74,159,240,0.08)); border: 1px solid var(--accent); border-radius: var(--radius); padding: 20px; margin-top: 16px; display: none; }
   .result-box.show { display: block; }
   .result-main { font-size: 36px; font-weight: 800; color: var(--accent); font-family: var(--mono); letter-spacing: -1px; }
   .result-sub { font-size: 20px; font-weight: 600; color: var(--accent2); font-family: var(--mono); margin-top: 4px; }
+  .result-unit { font-size: 17px; font-weight: 600; color: var(--warn); font-family: var(--mono); margin-top: 4px; }
   .result-meta { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .result-meta-item { background: var(--surface); border-radius: 8px; padding: 10px 12px; }
   .result-meta-item .label { font-size: 10px; color: var(--muted); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
   .result-meta-item .val { font-size: 14px; font-weight: 600; font-family: var(--mono); margin-top: 2px; }
   .route-badge { display: inline-block; margin-top: 12px; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
 
-  /* MED LIST */
+  /* SESSION DRUGS */
+  .session-drugs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+  .session-chip { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: rgba(74,159,240,0.12); border: 1px solid rgba(74,159,240,0.3); color: var(--accent2); }
+  .session-chip .remove-chip { cursor: pointer; opacity: 0.7; font-size: 12px; }
+  .session-chip .remove-chip:hover { opacity: 1; }
+
+  /* INTERACTION WARNING */
+  .interaction-warn { background: rgba(240,74,106,0.1); border: 1px solid rgba(240,74,106,0.5); border-radius: 10px; padding: 14px; margin-top: 12px; }
+  .interaction-warn-title { font-size: 12px; font-weight: 800; color: var(--danger); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .interaction-item { font-size: 13px; color: #f8818f; padding: 5px 0; border-bottom: 1px solid rgba(240,74,106,0.15); display: flex; gap: 8px; align-items: flex-start; }
+  .interaction-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .interaction-item .int-drug { font-weight: 700; color: var(--danger); }
+
   .search-bar { position: relative; margin-bottom: 16px; }
   .search-bar input { padding-left: 40px; }
   .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 16px; pointer-events: none; }
@@ -100,7 +111,6 @@
   .icon-btn:hover.del { border-color: var(--danger); color: var(--danger); background: rgba(240,74,106,0.1); }
   .icon-btn:hover.edit { border-color: var(--accent2); color: var(--accent2); background: rgba(74,159,240,0.1); }
 
-  /* ROUTE ROWS inside med list */
   .route-rows { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
   .route-row { font-size: 11px; font-family: var(--mono); color: var(--muted); background: var(--surface2); border-radius: 6px; padding: 4px 8px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
   .route-row .rr-label { color: var(--text); font-weight: 500; min-width: 30px; }
@@ -109,24 +119,21 @@
   .route-row .rr-sp.cat { background: rgba(192,132,252,0.15); color: var(--cat); }
   .route-row .rr-sp.both { background: rgba(74,240,176,0.15); color: var(--both); }
 
-  /* CONTRAINDICATION */
   .contra-box { background: rgba(240,74,106,0.08); border: 1px solid rgba(240,74,106,0.4); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #f8818f; margin-top: 8px; display: flex; gap: 6px; align-items: flex-start; }
 
-  /* HISTORY */
   .history-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
   .history-header { display: flex; justify-content: space-between; align-items: flex-start; }
   .history-drug { font-size: 15px; font-weight: 700; }
   .history-time { font-size: 11px; color: var(--muted); font-family: var(--mono); }
   .history-dose { font-size: 22px; font-weight: 800; font-family: var(--mono); color: var(--accent); margin-top: 4px; }
   .history-vol { font-size: 14px; font-family: var(--mono); color: var(--accent2); }
+  .history-unit { font-size: 13px; font-family: var(--mono); color: var(--warn); }
   .history-detail { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
-  /* EMPTY STATE */
   .empty { text-align: center; padding: 40px 20px; color: var(--muted); }
   .empty-icon { font-size: 40px; margin-bottom: 12px; }
   .empty-text { font-size: 14px; }
 
-  /* MODAL */
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: none; align-items: flex-end; }
   .modal-overlay.show { display: flex; }
   .modal { background: var(--surface); border-radius: 20px 20px 0 0; border-top: 1px solid var(--border); padding: 24px 20px 40px; width: 100%; max-height: 92vh; overflow-y: auto; animation: slideUp 0.3s ease; }
@@ -134,7 +141,6 @@
   .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
   .modal-title { font-size: 18px; font-weight: 800; margin-bottom: 20px; }
 
-  /* ROUTE ENTRY BLOCKS inside modal */
   .route-entry { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 10px; position: relative; }
   .route-entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .route-entry-title { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
@@ -143,18 +149,32 @@
   .route-entry .field:last-child { margin-bottom: 0; }
   .route-entry input, .route-entry select { font-size: 14px; padding: 9px 12px; }
 
-  /* Case rows inside route entry */
-  .case-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: end; margin-bottom: 8px; }
+  .case-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 8px; align-items: end; margin-bottom: 8px; }
   .case-row input, .case-row select { font-size: 13px; padding: 8px 10px; }
   .case-row .case-remove { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 16px; padding: 0 4px; align-self: center; }
+  .case-row-header { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 8px; margin-bottom: 4px; }
+  .case-row-header span { font-size: 10px; color: var(--muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 0 2px; }
 
-  /* TOAST */
-  .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 600; z-index: 999; opacity: 0; transition: all 0.3s; white-space: nowrap; }
+  /* DRUG-DRUG CONTRAINDICATIONS MULTI SELECT */
+  .drug-contra-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; min-height: 32px; padding: 6px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; }
+  .drug-contra-chip { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: rgba(240,74,106,0.12); border: 1px solid rgba(240,74,106,0.35); color: #f8818f; cursor: pointer; }
+  .drug-contra-chip .x { opacity: 0.6; font-size: 12px; }
+  .drug-contra-chip:hover .x { opacity: 1; }
+  .drug-contra-placeholder { font-size: 12px; color: var(--muted); align-self: center; }
+  .drug-pick-list { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; margin-top: 4px; max-height: 180px; overflow-y: auto; display: none; }
+  .drug-pick-list.open { display: block; }
+  .drug-pick-item { padding: 9px 14px; font-size: 13px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .drug-pick-item:hover { background: rgba(74,240,176,0.05); }
+  .drug-pick-item.selected { color: var(--danger); }
+  .drug-pick-item .check { font-size: 12px; opacity: 0; }
+  .drug-pick-item.selected .check { opacity: 1; }
+
+  .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 600; z-index: 999; opacity: 0; transition: all 0.3s; white-space: nowrap; max-width: 90vw; text-align: center; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast.success { border-color: var(--accent); color: var(--accent); }
   .toast.error { border-color: var(--danger); color: var(--danger); }
+  .toast.warn { border-color: var(--warn); color: var(--warn); }
 
-  /* NAV */
   .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); display: flex; padding: 8px 0 20px; z-index: 100; }
   .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px; cursor: pointer; color: var(--muted); transition: color 0.2s; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
   .nav-item.active { color: var(--accent); }
@@ -165,22 +185,17 @@
   .stat-card { background: var(--surface2); border-radius: 10px; padding: 14px; border: 1px solid var(--border); }
   .stat-val { font-size: 28px; font-weight: 800; font-family: var(--mono); color: var(--accent); }
   .stat-label { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 2px; letter-spacing: 0.5px; }
-  .warning-box { background: rgba(240,168,74,0.1); border: 1px solid var(--warn); border-radius: 10px; padding: 12px 14px; font-size: 12px; color: var(--warn); margin-top: 12px; display: flex; gap: 8px; align-items: flex-start; }
+  .warning-box { background: rgba(240,168,74,0.1); border: 1px solid var(--warn); border-radius: 10px; padding: 12px 14px; font-size: 12px; color: var(--warn); display: flex; gap: 8px; align-items: flex-start; }
   .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
   .section-title { font-size: 16px; font-weight: 800; }
-  .unit-toggle { display: flex; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
-  .unit-btn { flex: 1; padding: 9px; border: none; background: transparent; color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-  .unit-btn.active { background: var(--accent); color: var(--bg); }
   .calc-step { background: var(--surface2); border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
   .calc-step span { color: var(--text); }
 
-  /* FILTER TABS */
   .filter-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
   .tab { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
   .tab.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
   .tab:not(.active):hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ROUTE SELECTOR in calc page */
   .route-selector { display: flex; flex-direction: column; gap: 8px; }
   .route-option { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; }
   .route-option:hover { border-color: var(--accent2); }
@@ -192,14 +207,48 @@
   .case-chip { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); cursor: pointer; transition: all 0.2s; }
   .case-chip.selected { background: rgba(74,159,240,0.2); border-color: var(--accent2); color: var(--accent2); }
 
-  /* CONC selector */
   .conc-selector { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
   .conc-chip { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); cursor: pointer; font-family: var(--mono); transition: all 0.2s; }
   .conc-chip.selected { background: rgba(74,240,176,0.15); border-color: var(--accent); color: var(--accent); }
 
-  /* add-route btn */
   .add-route-btn { width: 100%; padding: 10px; border-radius: 8px; border: 1px dashed var(--border); background: transparent; color: var(--muted); font-family: var(--sans); font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
   .add-route-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* SHARE MODAL */
+  .share-url-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-family: var(--mono); font-size: 11px; color: var(--accent2); word-break: break-all; max-height: 100px; overflow-y: auto; margin: 12px 0; }
+  .share-info { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+
+  /* SYRINGE VISUAL */
+  .syringe-guide { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+  .syringe-guide-title { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .syringe-bar { height: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; position: relative; overflow: hidden; }
+  .syringe-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 4px; transition: width 0.5s ease; }
+  .syringe-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); font-family: var(--mono); margin-top: 4px; }
+  .syringe-marker { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.2); }
+
+  /* CLOUD SYNC indicator */
+  .cloud-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .cloud-row:last-child { border-bottom: none; }
+  .cloud-row-label { font-size: 13px; font-weight: 600; }
+  .cloud-row-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* IMPORT LINK */
+  .import-link-input { display: flex; gap: 8px; margin-bottom: 10px; }
+  .import-link-input input { flex: 1; font-size: 13px; padding: 10px 12px; font-family: var(--mono); }
+  .import-preview { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 12px; display: none; }
+  .import-preview.show { display: block; }
+  .import-preview-title { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .import-preview-count { font-size: 22px; font-weight: 800; font-family: var(--mono); color: var(--accent); }
+  .import-preview-sub { font-size: 12px; color: var(--muted); margin-top: 2px; margin-bottom: 10px; }
+  .import-med-list { display: flex; flex-direction: column; gap: 5px; max-height: 180px; overflow-y: auto; margin-bottom: 12px; }
+  .import-med-row { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border-radius: 7px; padding: 7px 10px; font-size: 13px; }
+  .import-med-row .iname { font-weight: 700; }
+  .import-med-row .istatus { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; letter-spacing: 0.4px; }
+  .import-med-row .istatus.new { background: rgba(74,240,176,0.15); color: var(--accent); border: 1px solid rgba(74,240,176,0.3); }
+  .import-med-row .istatus.exists { background: rgba(107,115,153,0.15); color: var(--muted); border: 1px solid var(--border); }
+  .import-actions { display: flex; gap: 8px; }
+  .import-error { font-size: 13px; color: var(--danger); padding: 10px; background: rgba(240,74,106,0.08); border: 1px solid rgba(240,74,106,0.3); border-radius: 8px; margin-bottom: 10px; display: none; }
+  .import-error.show { display: block; }
 </style>
 </head>
 <body>
@@ -208,12 +257,24 @@
   <div class="logo">🐾</div>
   <div>
     <div class="header-title">VetDose</div>
-    <div class="header-sub">Dosage Calculator v2.0</div>
+    <div class="header-sub">Dosage Calculator v3.0</div>
+  </div>
+  <div class="header-right">
+    <div class="sync-badge local" id="sync-badge">LOCAL</div>
   </div>
 </div>
 
 <!-- CALCULATE PAGE -->
 <div class="page active" id="page-calc">
+
+  <!-- SESSION DRUGS (for interaction checking) -->
+  <div class="card" id="session-card">
+    <div class="card-title" style="margin-bottom:10px">Active Session Drugs <span style="color:var(--muted);font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;margin-left:4px">— for interaction checking</span></div>
+    <div class="session-drugs" id="session-chips">
+      <div style="font-size:12px;color:var(--muted);font-style:italic" id="session-empty-msg">No drugs in session. Drugs are added automatically after each calculation.</div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-title">Select Medication</div>
     <div class="search-bar">
@@ -227,7 +288,6 @@
     <div class="card-title">Patient Details</div>
     <div id="selected-med-info" style="margin-bottom:16px"></div>
 
-    <!-- Contraindications -->
     <div id="calc-contras" style="display:none"></div>
 
     <div class="field">
@@ -251,15 +311,7 @@
     </div>
 
     <div class="field">
-      <label>WEIGHT UNIT</label>
-      <div class="unit-toggle">
-        <button class="unit-btn active" id="unit-kg" onclick="setUnit('kg')">kg</button>
-        <button class="unit-btn" id="unit-lbs" onclick="setUnit('lbs')">lbs</button>
-      </div>
-    </div>
-
-    <div class="field">
-      <label id="weight-label">WEIGHT (kg)</label>
+      <label>WEIGHT (kg)</label>
       <input type="number" id="calc-weight" placeholder="e.g. 5.5" step="0.1" min="0.1">
     </div>
 
@@ -269,6 +321,8 @@
       <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Result</div>
       <div class="result-main" id="res-dose">—</div>
       <div class="result-sub" id="res-vol">—</div>
+      <div class="result-unit" id="res-unit" style="display:none">—</div>
+      <div id="res-syringe" style="display:none"></div>
       <div class="result-meta">
         <div class="result-meta-item"><div class="label">Drug</div><div class="val" id="res-drug">—</div></div>
         <div class="result-meta-item"><div class="label">Species</div><div class="val" id="res-species">—</div></div>
@@ -278,6 +332,10 @@
       <div id="res-route-badge"></div>
       <div id="res-case-label" style="margin-top:6px;font-size:12px;color:var(--warn)"></div>
       <div id="res-calc-steps"></div>
+
+      <!-- POST-CALC CONTRAINDICATION WARNINGS -->
+      <div id="res-interactions"></div>
+
       <div class="warning-box" style="margin-top:12px">
         <span>⚠️</span>
         <span>Always verify dosages. This tool is a clinical aid — not a replacement for professional judgment.</span>
@@ -316,6 +374,40 @@
 
 <!-- SETTINGS PAGE -->
 <div class="page" id="page-settings">
+
+  <div class="card">
+    <div class="card-title">Share Database</div>
+    <p class="share-info">Generate a shareable link encoding your entire medications database. Colleagues open the link and can import it with one tap — no account needed.</p>
+    <button class="btn btn-primary" style="margin-bottom:10px" onclick="generateShareLink()">🔗 Generate Share Link</button>
+    <div id="share-link-area" style="display:none">
+      <div class="share-url-box" id="share-url-text"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary btn-sm" onclick="copyShareLink()">📋 Copy Link</button>
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('share-link-area').style.display='none'">✕ Hide</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Import from Shared Link</div>
+    <p class="share-info">Paste a share link (or just the code after <code style="font-family:var(--mono);font-size:11px;background:var(--surface2);padding:1px 5px;border-radius:4px">?import=</code>) from a colleague to preview and import their database.</p>
+    <div class="import-link-input">
+      <input type="text" id="import-link-input" placeholder="Paste link or code here…" oninput="onImportLinkInput()" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="btn btn-secondary btn-sm" onclick="clearImportInput()" id="import-clear-btn" style="display:none;flex-shrink:0">✕</button>
+    </div>
+    <div class="import-error" id="import-error">⚠️ Invalid link — couldn't decode the database.</div>
+    <div class="import-preview" id="import-preview">
+      <div class="import-preview-title">Preview</div>
+      <div class="import-preview-count" id="import-preview-count">—</div>
+      <div class="import-preview-sub" id="import-preview-sub"></div>
+      <div class="import-med-list" id="import-med-list"></div>
+      <div class="import-actions">
+        <button class="btn btn-primary btn-sm" onclick="commitImport('merge')" id="import-btn-merge">⊕ Merge into my DB</button>
+        <button class="btn btn-danger btn-sm" onclick="commitImport('replace')" id="import-btn-replace">↺ Replace my DB</button>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-title">Database</div>
     <div class="stats-grid">
@@ -338,7 +430,7 @@
     <div class="card-title">Danger Zone</div>
     <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear All Data</button>
   </div>
-  <div style="text-align:center;color:var(--muted);font-size:11px;font-family:var(--mono);padding:20px 0">VetDose v2.0 · Add to Home Screen for app experience</div>
+  <div style="text-align:center;color:var(--muted);font-size:11px;font-family:var(--mono);padding:20px 0">VetDose v3.0 · Add to Home Screen for app experience</div>
 </div>
 
 <!-- BOTTOM NAV -->
@@ -361,9 +453,20 @@
     </div>
 
     <div class="field">
-      <label>CONTRAINDICATIONS (optional)</label>
+      <label>CLINICAL CONTRAINDICATIONS (conditions/allergies)</label>
       <input type="text" id="m-contra" placeholder="e.g. Renal failure, pregnancy">
-      <div style="font-size:11px;color:var(--muted);margin-top:4px">Comma-separated. Will show as a warning during dosing.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Comma-separated conditions. Shown as a warning during dosing.</div>
+    </div>
+
+    <div class="field">
+      <label>CONTRAINDICATED WITH (other drugs in your database)</label>
+      <div style="position:relative">
+        <div id="drug-contra-display" class="drug-contra-list" onclick="toggleDrugPickList()" style="cursor:pointer;min-height:36px">
+          <span class="drug-contra-placeholder" id="drug-contra-placeholder">Tap to select drugs...</span>
+        </div>
+        <div class="drug-pick-list" id="drug-pick-list"></div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Warns when both drugs are used in the same session.</div>
     </div>
 
     <div class="field">
@@ -394,14 +497,14 @@
 
 <script>
 // ═══════════════════════════════════════════════════════════
-// DATA SCHEMA v2
-// Medication: { id, name, contraindications: [], notes, routes: [RouteEntry] }
-// RouteEntry: { id, route, species, concentrations: [number], cases: [CaseEntry] }
-// CaseEntry: { id, label, dose }  (label optional = "Standard")
+// VETDOSE v3 DATA SCHEMA
+// Medication: { id, name, contraindications:[], drugContraIds:[], notes, routes:[RouteEntry] }
+// RouteEntry: { id, route, species, concentrations:[number], unitSize:number|null, cases:[CaseEntry] }
+// CaseEntry:  { id, label, dose }
 // ═══════════════════════════════════════════════════════════
 
-const SCHEMA_VERSION = 2;
-const STORAGE_KEYS = { meds: 'vetdose_meds_v2', history: 'vetdose_history', version: 'vetdose_schema_ver' };
+const SCHEMA_VERSION = 3;
+const STORAGE_KEYS = { meds:'vetdose_meds_v2', history:'vetdose_history', version:'vetdose_schema_ver' };
 
 let meds = [];
 let calcHistory = [];
@@ -410,57 +513,61 @@ let selectedRoute = null;
 let selectedCase = null;
 let selectedConc = null;
 let calcSpecies = null;
-let weightUnit = 'kg';
 let medFilter = 'all';
 let editingId = null;
+let sessionDrugIds = []; // drugs used in this calculation session
 
-// ─── SCHEMA MIGRATION ────────────────────────────────────
+// Currently selected drug-drug contraindications while editing modal
+let modalDrugContraIds = [];
+
+// ─── MIGRATION ───────────────────────────────────────────
 function migrateV1ToV2(oldMeds) {
   return oldMeds.map(m => {
-    // Already v2 shape
-    if (m.routes && Array.isArray(m.routes)) return m;
-    // Migrate from flat v1 shape
-    return {
-      id: m.id || Date.now().toString() + Math.random(),
+    if (m.routes && Array.isArray(m.routes)) return ensureV3Fields(m);
+    return ensureV3Fields({
+      id: m.id || uid(),
       name: m.name,
       contraindications: m.contraindications || [],
+      drugContraIds: [],
       notes: m.notes || '',
       routes: [{
-        id: 'r_' + (m.id || Date.now()),
+        id: 'r_'+(m.id||Date.now()),
         route: m.route || 'PO',
         species: m.species || 'both',
-        concentrations: [parseFloat(m.conc) || 0].filter(Boolean),
-        cases: [{ id: 'c_' + (m.id || Date.now()), label: 'Standard', dose: parseFloat(m.dose) || 0 }]
+        concentrations: [parseFloat(m.conc)||0].filter(Boolean),
+        unitSize: null,
+        cases: [{ id:'c_'+(m.id||Date.now()), label:'Standard', dose: parseFloat(m.dose)||0 }]
       }]
-    };
+    });
   });
 }
 
-function runMigration(manual = false) {
-  const ver = parseInt(localStorage.getItem(STORAGE_KEYS.version) || '1');
-  const oldMeds = JSON.parse(localStorage.getItem('vetdose_meds') || '[]');
+function ensureV3Fields(m) {
+  if (!m.drugContraIds) m.drugContraIds = [];
+  m.routes = (m.routes||[]).map(r => {
+    if (r.unitSize === undefined) r.unitSize = null;
+    return r;
+  });
+  return m;
+}
+
+function runMigration(manual=false) {
+  const ver = parseInt(localStorage.getItem(STORAGE_KEYS.version)||'1');
+  const oldMeds = JSON.parse(localStorage.getItem('vetdose_meds')||'[]');
   if (ver < 2 && oldMeds.length) {
     meds = migrateV1ToV2(oldMeds);
     save();
     if (manual) toast('✅ Old data migrated successfully');
-  } else if (manual) {
-    toast('Nothing to migrate');
-  }
+  } else if (manual) { toast('Nothing to migrate'); }
 }
 
 function loadData() {
-  const ver = parseInt(localStorage.getItem(STORAGE_KEYS.version) || '1');
-  if (ver < SCHEMA_VERSION) {
-    runMigration(false);
-  }
-  const stored = localStorage.getItem(STORAGE_KEYS.meds);
-  if (stored) {
-    try { meds = JSON.parse(stored); } catch(e) { meds = []; }
-  }
-  const storedH = localStorage.getItem(STORAGE_KEYS.history);
-  if (storedH) {
-    try { calcHistory = JSON.parse(storedH); } catch(e) { calcHistory = []; }
-  }
+  const ver = parseInt(localStorage.getItem(STORAGE_KEYS.version)||'1');
+  if (ver < SCHEMA_VERSION) runMigration(false);
+  try { const s = localStorage.getItem(STORAGE_KEYS.meds); if (s) meds = JSON.parse(s).map(ensureV3Fields); } catch(e){ meds=[]; }
+  try { const s = localStorage.getItem(STORAGE_KEYS.history); if (s) calcHistory = JSON.parse(s); } catch(e){ calcHistory=[]; }
+  // Check for shared DB in URL
+  checkImportFromUrl();
 }
 
 function save() {
@@ -469,70 +576,323 @@ function save() {
   localStorage.setItem(STORAGE_KEYS.version, SCHEMA_VERSION.toString());
 }
 
+// ─── URL SHARE / IMPORT ──────────────────────────────────
+function generateShareLink() {
+  if (!meds.length) return toast('No medications to share', 'error');
+  try {
+    const payload = JSON.stringify({ v: SCHEMA_VERSION, meds });
+    const compressed = btoa(unescape(encodeURIComponent(payload)));
+    const url = location.href.split('?')[0].split('#')[0] + '?import=' + compressed;
+    document.getElementById('share-url-text').textContent = url;
+    document.getElementById('share-link-area').style.display = 'block';
+    toast(`✅ Link ready — ${meds.length} medication${meds.length>1?'s':''} encoded`);
+  } catch(e) {
+    toast('Failed to generate link', 'error');
+  }
+}
+
+function copyShareLink() {
+  const text = document.getElementById('share-url-text').textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => toast('✅ Link copied to clipboard'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    toast('✅ Link copied');
+  }
+}
+
+function checkImportFromUrl() {
+  const params = new URLSearchParams(location.search);
+  const data = params.get('import');
+  if (!data) return;
+  try {
+    const json = decodeURIComponent(escape(atob(data)));
+    const payload = JSON.parse(json);
+    if (!Array.isArray(payload.meds)) throw new Error();
+    const incoming = payload.meds.map(ensureV3Fields);
+    // Show import prompt
+    setTimeout(() => {
+      const existing = meds.length;
+      const msg = existing
+        ? `A shared database with ${incoming.length} medication${incoming.length>1?'s':''} was found in this link.\n\nMerge with your ${existing} existing medications?`
+        : `A shared database with ${incoming.length} medication${incoming.length>1?'s':''} was found. Import?`;
+      if (confirm(msg)) {
+        if (existing) {
+          const existIds = new Set(meds.map(m=>m.id));
+          incoming.filter(m=>!existIds.has(m.id)).forEach(m=>meds.push(m));
+          toast(`✅ Merged ${incoming.length} medications from shared link`);
+        } else {
+          meds = incoming;
+          toast(`✅ Imported ${incoming.length} medications from shared link`);
+        }
+        save(); updateStats(); renderMedList(); renderCalcList();
+      }
+      // Clean URL
+      history.replaceState({}, '', location.pathname);
+    }, 600);
+  } catch(e) { /* bad param, ignore */ }
+}
+
+// ─── MANUAL IMPORT FROM LINK (Settings) ─────────────────
+let pendingImportMeds = null;
+
+function extractImportCode(raw) {
+  raw = raw.trim();
+  // If it looks like a URL, pull the ?import= param
+  try {
+    const u = new URL(raw);
+    const p = u.searchParams.get('import');
+    if (p) return p;
+  } catch(e) {}
+  // Otherwise treat the whole string as the base64 code
+  return raw;
+}
+
+function decodeImportCode(code) {
+  const json = decodeURIComponent(escape(atob(code)));
+  const payload = JSON.parse(json);
+  if (!Array.isArray(payload.meds)) throw new Error('No meds array');
+  return payload.meds.map(ensureV3Fields);
+}
+
+function onImportLinkInput() {
+  const raw = document.getElementById('import-link-input').value;
+  const preview = document.getElementById('import-preview');
+  const errEl  = document.getElementById('import-error');
+  const clearBtn = document.getElementById('import-clear-btn');
+
+  // Hide everything first
+  preview.classList.remove('show');
+  errEl.classList.remove('show');
+  clearBtn.style.display = raw ? 'block' : 'none';
+  pendingImportMeds = null;
+
+  if (!raw.trim()) return;
+
+  try {
+    const code = extractImportCode(raw);
+    const incoming = decodeImportCode(code);
+    pendingImportMeds = incoming;
+
+    const existIds = new Set(meds.map(m => m.id));
+    const newOnes  = incoming.filter(m => !existIds.has(m.id));
+    const dupOnes  = incoming.filter(m =>  existIds.has(m.id));
+
+    document.getElementById('import-preview-count').textContent =
+      incoming.length + ' medication' + (incoming.length !== 1 ? 's' : '');
+    document.getElementById('import-preview-sub').textContent =
+      newOnes.length + ' new · ' + dupOnes.length + ' already in your DB';
+
+    document.getElementById('import-med-list').innerHTML = incoming.map(m => {
+      const isNew = !existIds.has(m.id);
+      const routes = (m.routes||[]).map(r => r.route).join(', ');
+      return `<div class="import-med-row">
+        <div>
+          <span class="iname">${m.name}</span>
+          ${routes ? `<span style="font-size:11px;color:var(--muted);margin-left:6px">${routes}</span>` : ''}
+        </div>
+        <span class="istatus ${isNew ? 'new' : 'exists'}">${isNew ? 'NEW' : 'EXISTS'}</span>
+      </div>`;
+    }).join('');
+
+    // Adjust button labels
+    const mergeBtn = document.getElementById('import-btn-merge');
+    const replaceBtn = document.getElementById('import-btn-replace');
+    mergeBtn.textContent = `⊕ Merge (add ${newOnes.length} new)`;
+    if (!meds.length) {
+      replaceBtn.style.display = 'none';
+      mergeBtn.textContent = `✅ Import all ${incoming.length}`;
+    } else {
+      replaceBtn.style.display = '';
+    }
+
+    preview.classList.add('show');
+  } catch(e) {
+    errEl.classList.add('show');
+  }
+}
+
+function commitImport(mode) {
+  if (!pendingImportMeds) return;
+  if (mode === 'replace') {
+    if (!confirm(`Replace your entire database (${meds.length} medications) with the ${pendingImportMeds.length} from this link? This cannot be undone.`)) return;
+    meds = pendingImportMeds;
+    toast(`✅ Database replaced — ${meds.length} medications imported`);
+  } else {
+    const existIds = new Set(meds.map(m => m.id));
+    const added = pendingImportMeds.filter(m => !existIds.has(m.id));
+    added.forEach(m => meds.push(m));
+    if (added.length === 0) {
+      toast('All medications already exist in your DB', 'warn');
+    } else {
+      toast(`✅ Merged — ${added.length} new medication${added.length !== 1 ? 's' : ''} added`);
+    }
+  }
+  save(); updateStats(); renderMedList(); renderCalcList();
+  clearImportInput();
+}
+
+function clearImportInput() {
+  document.getElementById('import-link-input').value = '';
+  document.getElementById('import-preview').classList.remove('show');
+  document.getElementById('import-error').classList.remove('show');
+  document.getElementById('import-clear-btn').style.display = 'none';
+  pendingImportMeds = null;
+}
+
+// ─── SESSION DRUGS ───────────────────────────────────────
+function addToSession(medId) {
+  if (!sessionDrugIds.includes(medId)) {
+    sessionDrugIds.push(medId);
+    renderSessionChips();
+  }
+}
+
+function removeFromSession(medId) {
+  sessionDrugIds = sessionDrugIds.filter(id => id !== medId);
+  renderSessionChips();
+}
+
+function renderSessionChips() {
+  const chips = document.getElementById('session-chips');
+  const emptyMsg = document.getElementById('session-empty-msg');
+  const sessionMeds = sessionDrugIds.map(id => meds.find(m => m.id===id)).filter(Boolean);
+  if (!sessionMeds.length) {
+    chips.innerHTML = '<div style="font-size:12px;color:var(--muted);font-style:italic" id="session-empty-msg">No drugs in session. Drugs are added automatically after each calculation.</div>';
+    return;
+  }
+  chips.innerHTML = sessionMeds.map(m => `
+    <div class="session-chip">
+      ${m.name}
+      <span class="remove-chip" onclick="removeFromSession('${m.id}')">✕</span>
+    </div>`).join('');
+}
+
+// ─── DRUG-DRUG INTERACTION CHECK ─────────────────────────
+function checkInteractions(currentMedId) {
+  const warnings = [];
+  const currentMed = meds.find(m => m.id === currentMedId);
+  if (!currentMed) return warnings;
+
+  // For each drug in session, check if current drug is in their contraindicated list or vice versa
+  for (const sid of sessionDrugIds) {
+    if (sid === currentMedId) continue;
+    const sessionMed = meds.find(m => m.id === sid);
+    if (!sessionMed) continue;
+
+    const currentContraSessionMed = (currentMed.drugContraIds||[]).includes(sid);
+    const sessionMedContraCurrent = (sessionMed.drugContraIds||[]).includes(currentMedId);
+
+    if (currentContraSessionMed || sessionMedContraCurrent) {
+      warnings.push({ drugA: currentMed.name, drugB: sessionMed.name });
+    }
+  }
+  return warnings;
+}
+
 // ─── ROUTING ─────────────────────────────────────────────
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('nav-' + name).classList.add('active');
-  if (name === 'meds') renderMedList();
-  if (name === 'history') renderHistory();
-  if (name === 'calc') renderCalcList();
-  if (name === 'settings') updateStats();
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('active');
+  if (name==='meds') renderMedList();
+  if (name==='history') renderHistory();
+  if (name==='calc') renderCalcList();
+  if (name==='settings') updateStats();
 }
 
 // ─── TOAST ───────────────────────────────────────────────
-function toast(msg, type = 'success') {
+function toast(msg, type='success') {
   const t = document.getElementById('toast');
   t.textContent = msg;
-  t.className = 'toast show ' + type;
-  setTimeout(() => t.className = 'toast', 2500);
+  t.className = 'toast show '+(type==='warn'?'warn':type);
+  setTimeout(() => t.className='toast', 2800);
 }
 
 // ─── ROUTE COLORS ────────────────────────────────────────
 const routeColors = { IV:'#f04a6a', IM:'#f0a84a', SC:'#4af0b0', PO:'#4a9ff0', TOP:'#c084fc', IN:'#60d9fa', IO:'#ff9f43', EP:'#ee5a24' };
 const routeLabels = { PO:'PO – Oral', IV:'IV – Intravenous', IM:'IM – Intramuscular', SC:'SC – Subcutaneous', TOP:'TOP – Topical', IN:'IN – Intranasal', IO:'IO – Intraosseous', EP:'EP – Epidural' };
 function routeBadge(route) {
-  const c = routeColors[route] || 'var(--muted)';
+  const c = routeColors[route]||'var(--muted)';
   return `<span class="route-badge" style="background:${c}22;color:${c};border:1px solid ${c}">${route}</span>`;
 }
 
-// ─── HELPERS ─────────────────────────────────────────────
-function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
-
-function speciesLabel(s) {
-  return s === 'both' ? '🐾 Both' : s === 'dog' ? '🐶 Dog' : '🐱 Cat';
-}
-
-// Returns routes that are valid for a given species
+function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function speciesLabel(s) { return s==='both'?'🐾 Both':s==='dog'?'🐶 Dog':'🐱 Cat'; }
 function routesForSpecies(med, species) {
   if (!species) return med.routes;
-  return med.routes.filter(r => r.species === species || r.species === 'both');
+  return med.routes.filter(r => r.species===species || r.species==='both');
+}
+
+// ─── VOLUME FORMATTING ───────────────────────────────────
+function formatVolume(volMl) {
+  if (volMl === null || volMl === undefined) return null;
+  if (volMl < 0.1) {
+    return { display: (volMl * 1000).toFixed(1) + ' µL', note: 'microlitre — use insulin/tuberculin syringe', micro: true };
+  } else if (volMl < 1) {
+    return { display: volMl.toFixed(3) + ' ml', note: 'use 1ml syringe', micro: false };
+  } else if (volMl < 3) {
+    return { display: volMl.toFixed(2) + ' ml', note: 'use 2.5ml or 3ml syringe', micro: false };
+  } else if (volMl < 6) {
+    return { display: volMl.toFixed(2) + ' ml', note: 'use 5ml syringe', micro: false };
+  } else if (volMl < 12) {
+    return { display: volMl.toFixed(1) + ' ml', note: 'use 10ml syringe', micro: false };
+  } else {
+    return { display: volMl.toFixed(1) + ' ml', note: 'use 20ml+ syringe', micro: false };
+  }
+}
+
+function syringeCapForVol(volMl) {
+  if (volMl < 0.1) return 0.1; // in ml equivalent
+  if (volMl < 1) return 1;
+  if (volMl < 3) return 3;
+  if (volMl < 6) return 5;
+  if (volMl < 12) return 10;
+  return 20;
+}
+
+function formatUnits(doseMg, unitSize) {
+  if (!unitSize || unitSize <= 0) return null;
+  const units = doseMg / unitSize;
+  if (Number.isInteger(units) || Math.abs(units - Math.round(units)) < 0.01) {
+    return `${Math.round(units)} tablet${Math.round(units)===1?'':'s'} (${unitSize}mg each)`;
+  } else {
+    const whole = Math.floor(units);
+    const frac = units - whole;
+    let fracStr = '';
+    if (Math.abs(frac - 0.5) < 0.05) fracStr = '½';
+    else if (Math.abs(frac - 0.25) < 0.05) fracStr = '¼';
+    else if (Math.abs(frac - 0.75) < 0.05) fracStr = '¾';
+    else fracStr = frac.toFixed(2);
+    const display = whole > 0 ? `${whole} + ${fracStr}` : fracStr;
+    return `${display} tablet${units>1?'s':''} (${unitSize}mg each)`;
+  }
 }
 
 // ─── CALCULATE PAGE ───────────────────────────────────────
 function renderCalcList() {
-  const q = (document.getElementById('calc-search')?.value || '').toLowerCase();
+  const q = (document.getElementById('calc-search')?.value||'').toLowerCase();
   const list = document.getElementById('calc-med-list');
   const filtered = meds.filter(m => m.name.toLowerCase().includes(q));
   if (!filtered.length) {
-    list.innerHTML = `<div class="empty"><div class="empty-icon">💊</div><div class="empty-text">${meds.length ? 'No match' : 'No medications yet. Add some in the Medications tab!'}</div></div>`;
+    list.innerHTML = `<div class="empty"><div class="empty-icon">💊</div><div class="empty-text">${meds.length?'No match':'No medications yet. Add some in the Medications tab!'}</div></div>`;
     return;
   }
   list.innerHTML = filtered.map(m => {
-    const allSpecies = [...new Set(m.routes.map(r => r.species))];
-    const sp = allSpecies.length === 1 ? allSpecies[0] : (allSpecies.includes('both') && allSpecies.length === 1 ? 'both' : 'both');
-    const dotSp = m.routes.some(r => r.species === 'dog') && m.routes.some(r => r.species === 'cat') ? 'both' : (m.routes[0]?.species || 'both');
+    const dotSp = m.routes.some(r=>r.species==='dog')&&m.routes.some(r=>r.species==='cat')?'both':(m.routes[0]?.species||'both');
+    const isInSession = sessionDrugIds.includes(m.id);
     return `
-    <div class="med-item clickable ${selectedMed?.id === m.id ? 'selected' : ''}" onclick="selectMed('${m.id}')">
+    <div class="med-item clickable ${selectedMed?.id===m.id?'selected':''}" onclick="selectMed('${m.id}')">
       <div class="species-dot ${dotSp}"></div>
       <div style="flex:1">
-        <div class="med-name">${m.name}</div>
+        <div class="med-name">${m.name}${isInSession?'<span style="font-size:10px;margin-left:6px;color:var(--accent2);font-weight:600">● SESSION</span>':''}</div>
         <div class="med-tags">
-          ${[...new Set(m.routes.map(r=>r.route))].map(r => `<span class="tag route">${r}</span>`).join('')}
-          ${[...new Set(m.routes.map(r=>r.species))].map(s => `<span class="tag ${s === 'both' ? 'both' : s}">${speciesLabel(s)}</span>`).join('')}
+          ${[...new Set(m.routes.map(r=>r.route))].map(r=>`<span class="tag route">${r}</span>`).join('')}
+          ${[...new Set(m.routes.map(r=>r.species))].map(s=>`<span class="tag ${s==='both'?'both':s}">${speciesLabel(s)}</span>`).join('')}
         </div>
-        ${m.contraindications?.length ? `<div style="font-size:11px;color:var(--danger);margin-top:4px">🚫 ${m.contraindications.join(', ')}</div>` : ''}
+        ${m.contraindications?.length?`<div style="font-size:11px;color:var(--danger);margin-top:4px">🚫 ${m.contraindications.join(', ')}</div>`:''}
       </div>
     </div>`;
   }).join('');
@@ -541,54 +901,52 @@ function renderCalcList() {
 function filterCalcMeds() { renderCalcList(); }
 
 function selectMed(id) {
-  selectedMed = meds.find(m => m.id === id);
-  selectedRoute = null; selectedCase = null; selectedConc = null; calcSpecies = null;
+  selectedMed = meds.find(m=>m.id===id);
+  selectedRoute=null; selectedCase=null; selectedConc=null; calcSpecies=null;
   renderCalcList();
   document.getElementById('result-box').classList.remove('show');
 
-  // Med info
   document.getElementById('selected-med-info').innerHTML = `
     <div style="background:var(--surface2);border-radius:10px;padding:12px 14px">
       <div style="font-size:17px;font-weight:800">${selectedMed.name}</div>
-      ${selectedMed.notes ? `<div style="font-size:12px;color:var(--muted);margin-top:4px">📝 ${selectedMed.notes}</div>` : ''}
+      ${selectedMed.notes?`<div style="font-size:12px;color:var(--muted);margin-top:4px">📝 ${selectedMed.notes}</div>`:''}
     </div>`;
 
-  // Contraindications
+  // Clinical contraindications
   const contraEl = document.getElementById('calc-contras');
-  if (selectedMed.contraindications?.length) {
+  const clinicalContras = selectedMed.contraindications||[];
+  if (clinicalContras.length) {
     contraEl.style.display = 'block';
     contraEl.innerHTML = `<div class="contra-box" style="margin-bottom:14px">
       <span>🚫</span>
-      <div><strong>Contraindications:</strong> ${selectedMed.contraindications.join(' · ')}</div>
+      <div><strong>Clinical contraindications:</strong> ${clinicalContras.join(' · ')}</div>
     </div>`;
   } else {
     contraEl.style.display = 'none';
   }
 
-  // Species toggle — derive from all routes
-  const allSpecies = [...new Set(selectedMed.routes.map(r => r.species === 'both' ? ['dog','cat'] : [r.species]).flat())];
+  const allSpecies = [...new Set(selectedMed.routes.map(r=>r.species==='both'?['dog','cat']:[r.species]).flat())];
   const toggle = document.getElementById('calc-species-toggle');
-  toggle.innerHTML = allSpecies.map(s => `
+  toggle.innerHTML = allSpecies.map(s=>`
     <button class="species-btn ${s}" onclick="selectCalcSpecies('${s}', this)">
-      ${s === 'dog' ? '🐶 Dog' : '🐱 Cat'}
+      ${s==='dog'?'🐶 Dog':'🐱 Cat'}
     </button>`).join('');
-  if (allSpecies.length === 1) {
-    calcSpecies = allSpecies[0];
+  if (allSpecies.length===1) {
+    calcSpecies=allSpecies[0];
     toggle.querySelector('.species-btn').classList.add('active');
     renderRoutes();
   }
 
-  document.getElementById('calc-form-card').style.display = 'block';
-  document.getElementById('route-field').style.display = 'none';
-  document.getElementById('case-field').style.display = 'none';
-  document.getElementById('conc-field').style.display = 'none';
-  document.getElementById('calc-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('calc-form-card').style.display='block';
+  document.getElementById('route-field').style.display='none';
+  document.getElementById('case-field').style.display='none';
+  document.getElementById('conc-field').style.display='none';
+  document.getElementById('calc-form-card').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function selectCalcSpecies(s, btn) {
-  calcSpecies = s;
-  selectedRoute = null; selectedCase = null; selectedConc = null;
-  document.querySelectorAll('#calc-species-toggle .species-btn').forEach(b => b.classList.remove('active'));
+  calcSpecies=s; selectedRoute=null; selectedCase=null; selectedConc=null;
+  document.querySelectorAll('#calc-species-toggle .species-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('result-box').classList.remove('show');
   renderRoutes();
@@ -598,193 +956,252 @@ function renderRoutes() {
   const routes = routesForSpecies(selectedMed, calcSpecies);
   const rf = document.getElementById('route-field');
   const rs = document.getElementById('route-selector');
-  if (!routes.length) { rf.style.display = 'none'; return; }
-  rf.style.display = 'block';
-
+  if (!routes.length) { rf.style.display='none'; return; }
+  rf.style.display='block';
   rs.innerHTML = routes.map(r => {
     const defaultCase = r.cases[0];
-    const doseDisplay = r.cases.length === 1 ? `${defaultCase.dose} mg/kg` : `${Math.min(...r.cases.map(c=>c.dose))}–${Math.max(...r.cases.map(c=>c.dose))} mg/kg`;
+    const doseDisplay = r.cases.length===1 ? `${defaultCase.dose} mg/kg` : `${Math.min(...r.cases.map(c=>c.dose))}–${Math.max(...r.cases.map(c=>c.dose))} mg/kg`;
     return `
-    <div class="route-option ${selectedRoute?.id === r.id ? 'selected' : ''}" onclick="selectRoute('${r.id}')">
+    <div class="route-option ${selectedRoute?.id===r.id?'selected':''}" onclick="selectRoute('${r.id}')">
       <div class="route-option-top">
-        <div class="route-option-name">${routeLabels[r.route] || r.route}</div>
+        <div class="route-option-name">${routeLabels[r.route]||r.route}</div>
         <div class="route-option-dose">${doseDisplay}</div>
       </div>
-      ${r.concentrations?.length > 1 ? `<div style="font-size:11px;color:var(--muted);margin-top:4px">Available: ${r.concentrations.join(', ')} mg/ml</div>` : (r.concentrations?.length === 1 ? `<div style="font-size:11px;color:var(--muted);margin-top:4px">${r.concentrations[0]} mg/ml</div>` : '')}
+      ${r.concentrations?.length>1?`<div style="font-size:11px;color:var(--muted);margin-top:4px">Available: ${r.concentrations.join(', ')} mg/ml</div>`:(r.concentrations?.length===1?`<div style="font-size:11px;color:var(--muted);margin-top:4px">${r.concentrations[0]} mg/ml</div>`:'')}
+      ${r.unitSize?`<div style="font-size:11px;color:var(--warn);margin-top:2px">💊 ${r.unitSize}mg tablets</div>`:''}
     </div>`;
   }).join('');
-
-  if (routes.length === 1) {
-    selectedRoute = routes[0];
+  if (routes.length===1) {
+    selectedRoute=routes[0];
     rs.querySelector('.route-option')?.classList.add('selected');
     renderCasesAndConc();
   }
 }
 
 function selectRoute(routeId) {
-  selectedRoute = selectedMed.routes.find(r => r.id === routeId);
-  selectedCase = null; selectedConc = null;
+  selectedRoute = selectedMed.routes.find(r=>r.id===routeId);
+  selectedCase=null; selectedConc=null;
   document.getElementById('result-box').classList.remove('show');
-  document.querySelectorAll('.route-option').forEach(el => el.classList.remove('selected'));
-  document.querySelectorAll('.route-option').forEach(el => {
-    if (el.getAttribute('onclick') === `selectRoute('${routeId}')`) el.classList.add('selected');
+  document.querySelectorAll('.route-option').forEach(el=>{
+    el.classList.toggle('selected', el.getAttribute('onclick')===`selectRoute('${routeId}')`);
   });
   renderCasesAndConc();
 }
 
 function renderCasesAndConc() {
   if (!selectedRoute) return;
-
-  // Cases
   const cf = document.getElementById('case-field');
   const cs = document.getElementById('case-selector');
-  if (selectedRoute.cases.length > 1) {
-    cf.style.display = 'block';
-    cs.innerHTML = selectedRoute.cases.map(c => `
-      <div class="case-chip ${selectedCase?.id === c.id ? 'selected' : ''}" onclick="selectCase('${c.id}')">
-        ${c.label || 'Standard'} (${c.dose} mg/kg)
+  if (selectedRoute.cases.length>1) {
+    cf.style.display='block';
+    cs.innerHTML = selectedRoute.cases.map(c=>`
+      <div class="case-chip ${selectedCase?.id===c.id?'selected':''}" onclick="selectCase('${c.id}')">
+        ${c.label||'Standard'} (${c.dose} mg/kg)
       </div>`).join('');
   } else {
-    cf.style.display = 'none';
-    selectedCase = selectedRoute.cases[0] || null;
+    cf.style.display='none';
+    selectedCase=selectedRoute.cases[0]||null;
   }
-
-  // Concentration
   const concF = document.getElementById('conc-field');
   const concW = document.getElementById('conc-selector-wrap');
-  const concs = selectedRoute.concentrations || [];
-  if (concs.length > 1) {
-    concF.style.display = 'block';
-    concW.innerHTML = `<div class="conc-selector">${concs.map(c => `
-      <div class="conc-chip ${selectedConc === c ? 'selected' : ''}" onclick="selectConc(${c})">${c} mg/ml</div>`).join('')}
+  const concs = selectedRoute.concentrations||[];
+  if (concs.length>1) {
+    concF.style.display='block';
+    concW.innerHTML = `<div class="conc-selector">${concs.map(c=>`
+      <div class="conc-chip ${selectedConc===c?'selected':''}" onclick="selectConc(${c})">${c} mg/ml</div>`).join('')}
     </div>`;
-  } else if (concs.length === 1) {
-    concF.style.display = 'none';
-    selectedConc = concs[0];
+  } else if (concs.length===1) {
+    concF.style.display='none'; selectedConc=concs[0];
   } else {
-    concF.style.display = 'none';
-    selectedConc = null;
+    concF.style.display='none'; selectedConc=null;
   }
 }
 
 function selectCase(caseId) {
-  selectedCase = selectedRoute.cases.find(c => c.id === caseId);
-  document.querySelectorAll('#case-selector .case-chip').forEach(el => el.classList.remove('selected'));
-  document.querySelectorAll('#case-selector .case-chip').forEach(el => {
-    if (el.getAttribute('onclick') === `selectCase('${caseId}')`) el.classList.add('selected');
+  selectedCase = selectedRoute.cases.find(c=>c.id===caseId);
+  document.querySelectorAll('#case-selector .case-chip').forEach(el=>{
+    el.classList.toggle('selected', el.getAttribute('onclick')===`selectCase('${caseId}')`);
   });
   document.getElementById('result-box').classList.remove('show');
 }
 
 function selectConc(c) {
-  selectedConc = c;
-  document.querySelectorAll('.conc-chip').forEach(el => el.classList.remove('selected'));
-  document.querySelectorAll('.conc-chip').forEach(el => {
-    if (el.getAttribute('onclick') === `selectConc(${c})`) el.classList.add('selected');
+  selectedConc=c;
+  document.querySelectorAll('.conc-chip').forEach(el=>{
+    el.classList.toggle('selected', el.getAttribute('onclick')===`selectConc(${c})`);
   });
 }
 
-function setUnit(u) {
-  weightUnit = u;
-  document.getElementById('unit-kg').classList.toggle('active', u === 'kg');
-  document.getElementById('unit-lbs').classList.toggle('active', u === 'lbs');
-  document.getElementById('weight-label').textContent = `WEIGHT (${u})`;
-}
-
 function calculate() {
-  if (!selectedMed) return toast('Select a medication first', 'error');
-  if (!calcSpecies) return toast('Select animal type', 'error');
-  if (!selectedRoute) return toast('Select a route', 'error');
-  if (selectedRoute.cases.length > 1 && !selectedCase) return toast('Select a dosing case', 'error');
-  if (!selectedCase) selectedCase = selectedRoute.cases[0];
+  if (!selectedMed) return toast('Select a medication first','error');
+  if (!calcSpecies) return toast('Select animal type','error');
+  if (!selectedRoute) return toast('Select a route','error');
+  if (selectedRoute.cases.length>1 && !selectedCase) return toast('Select a dosing case','error');
+  if (!selectedCase) selectedCase=selectedRoute.cases[0];
 
   const rawW = parseFloat(document.getElementById('calc-weight').value);
-  if (!rawW || rawW <= 0) return toast('Enter a valid weight', 'error');
+  if (!rawW || rawW<=0) return toast('Enter a valid weight','error');
 
-  // Concentration
-  const conc = selectedConc || (selectedRoute.concentrations?.[0] || null);
-  const weightKg = weightUnit === 'lbs' ? rawW * 0.453592 : rawW;
-  const doseMg = selectedCase.dose * weightKg;
-  const volMl = conc ? doseMg / conc : null;
+  const conc = selectedConc||(selectedRoute.concentrations?.[0]||null);
+  const doseMg = selectedCase.dose * rawW;
+  const volMl = conc ? doseMg/conc : null;
+  const volFmt = volMl!==null ? formatVolume(volMl) : null;
+  const unitStr = formatUnits(doseMg, selectedRoute.unitSize);
 
-  document.getElementById('res-dose').textContent = doseMg.toFixed(2) + ' mg';
-  document.getElementById('res-vol').textContent = volMl !== null ? volMl.toFixed(3) + ' ml' : '— (no concentration set)';
+  // Main result display
+  document.getElementById('res-dose').textContent = doseMg.toFixed(2)+' mg';
+
+  if (volFmt) {
+    document.getElementById('res-vol').textContent = volFmt.display;
+    document.getElementById('res-vol').style.display = 'block';
+  } else {
+    document.getElementById('res-vol').textContent = '— (no concentration set)';
+    document.getElementById('res-vol').style.display = 'block';
+  }
+
+  // Unit display (tablets)
+  const unitEl = document.getElementById('res-unit');
+  if (unitStr) {
+    unitEl.textContent = '💊 ' + unitStr;
+    unitEl.style.display = 'block';
+  } else {
+    unitEl.style.display = 'none';
+  }
+
+  // Syringe guide
+  const syringeEl = document.getElementById('res-syringe');
+  if (volMl !== null && volFmt && !volFmt.micro) {
+    const cap = syringeCapForVol(volMl);
+    const pct = Math.min((volMl/cap)*100, 100);
+    const ticks = [];
+    const tickCount = cap <= 1 ? 10 : cap <= 3 ? 6 : cap <= 5 ? 5 : 10;
+    for (let i=1; i<tickCount; i++) {
+      ticks.push(`<div class="syringe-marker" style="left:${(i/tickCount)*100}%"></div>`);
+    }
+    syringeEl.innerHTML = `<div class="syringe-guide">
+      <div class="syringe-guide-title">🔬 Syringe Guide — ${volFmt.note}</div>
+      <div class="syringe-bar">
+        <div class="syringe-fill" style="width:${pct}%"></div>
+        ${ticks.join('')}
+      </div>
+      <div class="syringe-labels">
+        <span>0</span>
+        <span style="color:var(--accent);font-weight:700">${volFmt.display}</span>
+        <span>${cap} ml</span>
+      </div>
+    </div>`;
+    syringeEl.style.display = 'block';
+  } else if (volFmt?.micro) {
+    syringeEl.innerHTML = `<div class="syringe-guide">
+      <div class="syringe-guide-title">💉 ${volFmt.note}</div>
+      <div style="font-family:var(--mono);font-size:13px;color:var(--accent2);margin-top:4px">${volFmt.display} = ${(volMl*1000).toFixed(1)} µL</div>
+    </div>`;
+    syringeEl.style.display = 'block';
+  } else {
+    syringeEl.style.display = 'none';
+  }
+
   document.getElementById('res-drug').textContent = selectedMed.name;
-  document.getElementById('res-species').textContent = calcSpecies === 'dog' ? '🐶 Dog' : '🐱 Cat';
-  document.getElementById('res-weight').textContent = rawW + ' ' + weightUnit + (weightUnit === 'lbs' ? ` (${weightKg.toFixed(2)} kg)` : '');
-  document.getElementById('res-dosekg').textContent = selectedCase.dose + ' mg/kg';
+  document.getElementById('res-species').textContent = calcSpecies==='dog'?'🐶 Dog':'🐱 Cat';
+  document.getElementById('res-weight').textContent = rawW+' kg';
+  document.getElementById('res-dosekg').textContent = selectedCase.dose+' mg/kg';
   document.getElementById('res-route-badge').innerHTML = routeBadge(selectedRoute.route);
-  document.getElementById('res-case-label').textContent = selectedCase.label && selectedCase.label !== 'Standard' ? `Indication: ${selectedCase.label}` : '';
+  document.getElementById('res-case-label').textContent = selectedCase.label&&selectedCase.label!=='Standard'?`Indication: ${selectedCase.label}`:'';
 
   document.getElementById('res-calc-steps').innerHTML = `
     <div class="calc-step">
-      <span>${weightKg.toFixed(3)} kg</span> × <span>${selectedCase.dose} mg/kg</span> = <span>${doseMg.toFixed(2)} mg</span>
-      ${conc ? `<br><span>${doseMg.toFixed(2)} mg</span> ÷ <span>${conc} mg/ml</span> = <span>${volMl.toFixed(3)} ml</span>` : ''}
+      <span>${rawW.toFixed(3)} kg</span> × <span>${selectedCase.dose} mg/kg</span> = <span>${doseMg.toFixed(2)} mg</span>
+      ${conc?`<br><span>${doseMg.toFixed(2)} mg</span> ÷ <span>${conc} mg/ml</span> = <span>${volFmt?.display||volMl.toFixed(3)+' ml'}</span>`:''}
+      ${unitStr?`<br>= <span>${unitStr}</span>`:''}
     </div>`;
+
+  // ── CONTRAINDICATION WARNINGS ─────────────────────────
+  const intEl = document.getElementById('res-interactions');
+  const interactions = checkInteractions(selectedMed.id);
+  const clinicalContras = selectedMed.contraindications||[];
+
+  let warningsHTML = '';
+
+  if (clinicalContras.length) {
+    warningsHTML += `<div class="interaction-warn" style="margin-top:12px">
+      <div class="interaction-warn-title">🚫 Clinical Contraindications</div>
+      ${clinicalContras.map(c=>`<div class="interaction-item"><span>⚠</span><span>${c}</span></div>`).join('')}
+    </div>`;
+  }
+
+  if (interactions.length) {
+    warningsHTML += `<div class="interaction-warn" style="margin-top:10px">
+      <div class="interaction-warn-title">⚠️ Drug–Drug Interactions</div>
+      ${interactions.map(i=>`<div class="interaction-item">
+        <span>🔴</span>
+        <span><span class="int-drug">${i.drugA}</span> is contraindicated with <span class="int-drug">${i.drugB}</span> — currently in session</span>
+      </div>`).join('')}
+    </div>`;
+    toast(`⚠️ Drug interaction: ${interactions.map(i=>i.drugB).join(', ')}`, 'warn');
+  }
+
+  intEl.innerHTML = warningsHTML;
 
   document.getElementById('result-box').classList.add('show');
 
+  // Add to session
+  addToSession(selectedMed.id);
+
   // Save to history
   const entry = {
-    id: uid(),
-    drug: selectedMed.name,
-    species: calcSpecies,
-    weight: rawW,
-    unit: weightUnit,
-    weightKg,
-    dose: doseMg,
-    vol: volMl,
-    route: selectedRoute.route,
-    caseLabel: selectedCase.label || 'Standard',
-    conc,
-    time: new Date().toISOString()
+    id: uid(), drug: selectedMed.name, species: calcSpecies,
+    weight: rawW, weightKg: rawW, dose: doseMg, vol: volMl,
+    volDisplay: volFmt?.display||null, unitStr: unitStr||null,
+    route: selectedRoute.route, caseLabel: selectedCase.label||'Standard',
+    conc, time: new Date().toISOString()
   };
   calcHistory.unshift(entry);
-  if (calcHistory.length > 100) calcHistory.pop();
+  if (calcHistory.length>100) calcHistory.pop();
   save();
 }
 
 // ─── MED LIST PAGE ────────────────────────────────────────
 function setFilter(f) {
-  medFilter = f;
-  ['all','dog','cat','both'].forEach(x => document.getElementById('filter-'+x)?.classList.toggle('active', x === f));
+  medFilter=f;
+  ['all','dog','cat','both'].forEach(x=>document.getElementById('filter-'+x)?.classList.toggle('active',x===f));
   renderMedList();
 }
 
 function renderMedList() {
-  const q = (document.getElementById('meds-search')?.value || '').toLowerCase();
+  const q = (document.getElementById('meds-search')?.value||'').toLowerCase();
   let filtered = meds.filter(m => {
     const matchQ = m.name.toLowerCase().includes(q);
     if (!matchQ) return false;
-    if (medFilter === 'all') return true;
-    return m.routes.some(r => r.species === medFilter || r.species === 'both');
+    if (medFilter==='all') return true;
+    return m.routes.some(r=>r.species===medFilter||r.species==='both');
   });
-
   const list = document.getElementById('med-list');
   if (!filtered.length) {
-    list.innerHTML = `<div class="empty"><div class="empty-icon">🗂️</div><div class="empty-text">${meds.length ? 'No match' : 'No medications yet. Tap + Add to get started.'}</div></div>`;
+    list.innerHTML = `<div class="empty"><div class="empty-icon">🗂️</div><div class="empty-text">${meds.length?'No match':'No medications yet. Tap + Add to get started.'}</div></div>`;
     return;
   }
-
   list.innerHTML = filtered.map(m => {
+    const drugContraNames = (m.drugContraIds||[]).map(id=>meds.find(x=>x.id===id)?.name).filter(Boolean);
     const routeRows = m.routes.map(r => {
-      const doses = r.cases.map(c => `${c.label || 'Standard'}: ${c.dose} mg/kg`).join(' · ');
-      const concStr = r.concentrations?.length ? r.concentrations.join('/') + ' mg/ml' : '';
+      const doses = r.cases.map(c=>`${c.label||'Standard'}: ${c.dose} mg/kg`).join(' · ');
+      const concStr = r.concentrations?.length ? r.concentrations.join('/')+' mg/ml' : '';
+      const unitStr = r.unitSize ? `💊 ${r.unitSize}mg tabs` : '';
       return `<div class="route-row">
         <span class="rr-label">${r.route}</span>
         <span class="rr-sp ${r.species}">${speciesLabel(r.species)}</span>
         <span>${doses}</span>
-        ${concStr ? `<span style="opacity:0.6">${concStr}</span>` : ''}
+        ${concStr?`<span style="opacity:0.6">${concStr}</span>`:''}
+        ${unitStr?`<span style="color:var(--warn);opacity:0.8">${unitStr}</span>`:''}
       </div>`;
     }).join('');
-
     return `
     <div class="med-item">
-      <div class="species-dot ${m.routes.length > 0 ? m.routes[0].species : 'both'}"></div>
+      <div class="species-dot ${m.routes.length>0?m.routes[0].species:'both'}"></div>
       <div style="flex:1;min-width:0">
         <div class="med-name">${m.name}</div>
-        ${m.contraindications?.length ? `<div style="font-size:11px;color:var(--danger);margin-top:3px">🚫 ${m.contraindications.join(', ')}</div>` : ''}
-        ${m.notes ? `<div style="font-size:11px;color:var(--warn);margin-top:3px">📝 ${m.notes}</div>` : ''}
+        ${m.contraindications?.length?`<div style="font-size:11px;color:var(--danger);margin-top:3px">🚫 ${m.contraindications.join(', ')}</div>`:''}
+        ${drugContraNames.length?`<div style="font-size:11px;color:#f8818f;margin-top:3px">⚠️ Interacts with: ${drugContraNames.join(', ')}</div>`:''}
+        ${m.notes?`<div style="font-size:11px;color:var(--warn);margin-top:3px">📝 ${m.notes}</div>`:''}
         <div class="route-rows">${routeRows}</div>
       </div>
       <div class="med-actions">
@@ -797,46 +1214,100 @@ function renderMedList() {
 
 // ─── MODAL ────────────────────────────────────────────────
 function openAddModal() {
-  editingId = null;
-  document.getElementById('modal-title').textContent = 'Add Medication';
-  document.getElementById('m-name').value = '';
-  document.getElementById('m-contra').value = '';
-  document.getElementById('m-notes').value = '';
-  document.getElementById('route-entries').innerHTML = '';
+  editingId=null; modalDrugContraIds=[];
+  document.getElementById('modal-title').textContent='Add Medication';
+  document.getElementById('m-name').value='';
+  document.getElementById('m-contra').value='';
+  document.getElementById('m-notes').value='';
+  document.getElementById('route-entries').innerHTML='';
+  renderModalDrugContraChips();
   addRouteEntry();
   document.getElementById('med-modal').classList.add('show');
 }
 
 function openEditModal(id) {
-  const m = meds.find(x => x.id === id);
+  const m = meds.find(x=>x.id===id);
   if (!m) return;
-  editingId = id;
-  document.getElementById('modal-title').textContent = 'Edit Medication';
-  document.getElementById('m-name').value = m.name;
-  document.getElementById('m-contra').value = (m.contraindications || []).join(', ');
-  document.getElementById('m-notes').value = m.notes || '';
-  document.getElementById('route-entries').innerHTML = '';
-  if (m.routes?.length) {
-    m.routes.forEach(r => addRouteEntry(r));
-  } else {
-    addRouteEntry();
-  }
+  editingId=id; modalDrugContraIds=[...(m.drugContraIds||[])];
+  document.getElementById('modal-title').textContent='Edit Medication';
+  document.getElementById('m-name').value=m.name;
+  document.getElementById('m-contra').value=(m.contraindications||[]).join(', ');
+  document.getElementById('m-notes').value=m.notes||'';
+  document.getElementById('route-entries').innerHTML='';
+  if (m.routes?.length) m.routes.forEach(r=>addRouteEntry(r)); else addRouteEntry();
+  renderModalDrugContraChips();
   document.getElementById('med-modal').classList.add('show');
 }
 
+// Drug-drug contra picker
+function renderModalDrugContraChips() {
+  const display = document.getElementById('drug-contra-display');
+  const placeholder = document.getElementById('drug-contra-placeholder');
+  const selected = modalDrugContraIds.map(id=>meds.find(m=>m.id===id)).filter(m=>m && (!editingId||m.id!==editingId));
+  if (selected.length) {
+    display.innerHTML = selected.map(m=>`
+      <div class="drug-contra-chip" onclick="removeDrugContra('${m.id}');event.stopPropagation()">
+        ${m.name} <span class="x">✕</span>
+      </div>`).join('');
+  } else {
+    display.innerHTML = '<span class="drug-contra-placeholder">Tap to select drugs...</span>';
+  }
+}
+
+function toggleDrugPickList() {
+  const list = document.getElementById('drug-pick-list');
+  list.classList.toggle('open');
+  if (list.classList.contains('open')) renderDrugPickList();
+}
+
+function renderDrugPickList() {
+  const list = document.getElementById('drug-pick-list');
+  const available = meds.filter(m => !editingId || m.id !== editingId);
+  if (!available.length) {
+    list.innerHTML = '<div style="padding:12px;font-size:12px;color:var(--muted)">No other medications in database yet.</div>';
+    return;
+  }
+  list.innerHTML = available.map(m => {
+    const sel = modalDrugContraIds.includes(m.id);
+    return `<div class="drug-pick-item ${sel?'selected':''}" onclick="toggleDrugContra('${m.id}')">
+      <span>${m.name}</span>
+      <span class="check">✓</span>
+    </div>`;
+  }).join('');
+}
+
+function toggleDrugContra(id) {
+  if (modalDrugContraIds.includes(id)) {
+    modalDrugContraIds = modalDrugContraIds.filter(x=>x!==id);
+  } else {
+    modalDrugContraIds.push(id);
+  }
+  renderModalDrugContraChips();
+  renderDrugPickList();
+}
+
+function removeDrugContra(id) {
+  modalDrugContraIds = modalDrugContraIds.filter(x=>x!==id);
+  renderModalDrugContraChips();
+}
+
+function closeModal() {
+  document.getElementById('med-modal').classList.remove('show');
+  document.getElementById('drug-pick-list').classList.remove('open');
+}
+
 function addRouteEntry(existing) {
-  const id = existing?.id || uid();
+  const id = existing?.id||uid();
   const container = document.getElementById('route-entries');
   const div = document.createElement('div');
-  div.className = 'route-entry';
-  div.dataset.routeId = id;
-
-  const species = existing?.species || 'both';
-  const route = existing?.route || 'PO';
-  const concs = (existing?.concentrations || []).join(', ');
-  const cases = existing?.cases || [{ id: uid(), label: 'Standard', dose: '' }];
-
-  div.innerHTML = `
+  div.className='route-entry';
+  div.dataset.routeId=id;
+  const species=existing?.species||'both';
+  const route=existing?.route||'PO';
+  const concs=(existing?.concentrations||[]).join(', ');
+  const unitSize=existing?.unitSize||'';
+  const cases=existing?.cases||[{id:uid(),label:'Standard',dose:''}];
+  div.innerHTML=`
     <div class="route-entry-header">
       <div class="route-entry-title">Route Entry</div>
       <button class="route-entry-remove" onclick="removeRouteEntry('${id}')">✕</button>
@@ -844,7 +1315,7 @@ function addRouteEntry(existing) {
     <div class="field">
       <label>ROUTE</label>
       <select class="re-route">
-        ${Object.entries(routeLabels).map(([k,v]) => `<option value="${k}" ${route===k?'selected':''}>${v}</option>`).join('')}
+        ${Object.entries(routeLabels).map(([k,v])=>`<option value="${k}" ${route===k?'selected':''}>${v}</option>`).join('')}
       </select>
     </div>
     <div class="field">
@@ -860,24 +1331,31 @@ function addRouteEntry(existing) {
       <input type="text" class="re-concs" placeholder="e.g. 5, 20, 50" value="${concs}">
     </div>
     <div class="field">
+      <label>TABLET/UNIT SIZE (mg) — optional, for tablet count display</label>
+      <input type="number" class="re-unit-size" placeholder="e.g. 250 for 250mg tablets" step="0.1" min="0" value="${unitSize}">
+    </div>
+    <div class="field">
       <label>DOSING CASES</label>
+      <div class="case-row-header">
+        <span>Label</span><span>Dose (mg/kg)</span><span></span><span></span>
+      </div>
       <div class="re-cases">
-        ${cases.map(c => caseRowHTML(c)).join('')}
+        ${cases.map(c=>caseRowHTML(c)).join('')}
       </div>
       <button class="btn-xs btn-secondary" style="margin-top:6px;border:1px dashed var(--border);background:transparent;color:var(--muted)" onclick="addCaseRow('${id}')">＋ Add case</button>
     </div>`;
-
   container.appendChild(div);
 }
 
 function caseRowHTML(c) {
   return `<div class="case-row" data-case-id="${c.id}">
     <div class="field" style="margin:0">
-      <input type="text" class="cr-label" placeholder="Label (e.g. Loading dose)" value="${c.label || ''}">
+      <input type="text" class="cr-label" placeholder="Label" value="${c.label||''}">
     </div>
     <div class="field" style="margin:0">
-      <input type="number" class="cr-dose" placeholder="mg/kg" step="0.001" min="0" value="${c.dose || ''}">
+      <input type="number" class="cr-dose" placeholder="mg/kg" step="0.001" min="0" value="${c.dose||''}">
     </div>
+    <div></div>
     <button class="case-remove" onclick="removeCaseRow(this)">✕</button>
   </div>`;
 }
@@ -885,85 +1363,85 @@ function caseRowHTML(c) {
 function addCaseRow(routeEntryId) {
   const entry = document.querySelector(`.route-entry[data-route-id="${routeEntryId}"]`);
   const casesDiv = entry.querySelector('.re-cases');
-  const newCase = { id: uid(), label: '', dose: '' };
-  casesDiv.insertAdjacentHTML('beforeend', caseRowHTML(newCase));
+  casesDiv.insertAdjacentHTML('beforeend', caseRowHTML({id:uid(),label:'',dose:''}));
 }
 
 function removeCaseRow(btn) {
   const row = btn.closest('.case-row');
   const casesDiv = row.parentElement;
-  if (casesDiv.querySelectorAll('.case-row').length <= 1) return toast('At least one dosing case required', 'error');
+  if (casesDiv.querySelectorAll('.case-row').length<=1) return toast('At least one dosing case required','error');
   row.remove();
 }
 
 function removeRouteEntry(id) {
   const entries = document.querySelectorAll('.route-entry');
-  if (entries.length <= 1) return toast('At least one route required', 'error');
+  if (entries.length<=1) return toast('At least one route required','error');
   document.querySelector(`.route-entry[data-route-id="${id}"]`)?.remove();
 }
 
 function toggleReSpecies(btn, s, routeEntryId) {
   const entry = document.querySelector(`.route-entry[data-route-id="${routeEntryId}"]`);
-  entry.querySelectorAll('.re-species-toggle .species-btn').forEach(b => b.classList.remove('active'));
+  entry.querySelectorAll('.re-species-toggle .species-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
 }
 
-function closeModal() { document.getElementById('med-modal').classList.remove('show'); }
-
 function saveMed() {
   const name = document.getElementById('m-name').value.trim();
-  if (!name) return toast('Enter medication name', 'error');
+  if (!name) return toast('Enter medication name','error');
 
   const contraRaw = document.getElementById('m-contra').value.trim();
-  const contraindications = contraRaw ? contraRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+  const contraindications = contraRaw ? contraRaw.split(',').map(s=>s.trim()).filter(Boolean) : [];
   const notes = document.getElementById('m-notes').value.trim();
+  const drugContraIds = [...modalDrugContraIds];
 
-  // Collect routes
   const routeEntries = document.querySelectorAll('.route-entry');
-  if (!routeEntries.length) return toast('Add at least one route', 'error');
+  if (!routeEntries.length) return toast('Add at least one route','error');
 
   const routes = [];
   for (const entry of routeEntries) {
     const routeId = entry.dataset.routeId;
     const route = entry.querySelector('.re-route').value;
     const speciesActive = entry.querySelector('.re-species-toggle .species-btn.active');
-    const species = speciesActive ? (speciesActive.classList.contains('dog') ? 'dog' : speciesActive.classList.contains('cat') ? 'cat' : 'both') : 'both';
+    const species = speciesActive ? (speciesActive.classList.contains('dog')?'dog':speciesActive.classList.contains('cat')?'cat':'both') : 'both';
     const concsRaw = entry.querySelector('.re-concs').value.trim();
-    const concentrations = concsRaw ? concsRaw.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n) && n > 0) : [];
+    const concentrations = concsRaw ? concsRaw.split(',').map(s=>parseFloat(s.trim())).filter(n=>!isNaN(n)&&n>0) : [];
+    const unitSizeRaw = parseFloat(entry.querySelector('.re-unit-size').value);
+    const unitSize = (!isNaN(unitSizeRaw) && unitSizeRaw > 0) ? unitSizeRaw : null;
 
     const caseRows = entry.querySelectorAll('.case-row');
     const cases = [];
     for (const cr of caseRows) {
-      const label = cr.querySelector('.cr-label').value.trim() || 'Standard';
+      const label = cr.querySelector('.cr-label').value.trim()||'Standard';
       const dose = parseFloat(cr.querySelector('.cr-dose').value);
-      if (!dose || dose <= 0) return toast(`Enter valid dose for "${label}" in route ${route}`, 'error');
-      cases.push({ id: cr.dataset.caseId || uid(), label, dose });
+      if (!dose||dose<=0) return toast(`Enter valid dose for "${label}" in route ${route}`,'error');
+      cases.push({id:cr.dataset.caseId||uid(),label,dose});
     }
-    if (!cases.length) return toast(`Route ${route} needs at least one dosing case`, 'error');
-    routes.push({ id: routeId, route, species, concentrations, cases });
+    if (!cases.length) return toast(`Route ${route} needs at least one dosing case`,'error');
+    routes.push({id:routeId,route,species,concentrations,unitSize,cases});
   }
 
   if (editingId) {
-    const idx = meds.findIndex(m => m.id === editingId);
-    meds[idx] = { ...meds[idx], name, contraindications, notes, routes };
+    const idx = meds.findIndex(m=>m.id===editingId);
+    meds[idx]={...meds[idx],name,contraindications,drugContraIds,notes,routes};
     toast('✅ Medication updated');
   } else {
-    meds.push({ id: uid(), name, contraindications, notes, routes });
+    meds.push({id:uid(),name,contraindications,drugContraIds,notes,routes});
     toast('✅ Medication added');
   }
-  save();
-  closeModal();
-  renderMedList();
-  renderCalcList();
+  save(); closeModal(); renderMedList(); renderCalcList();
 }
 
 function deleteMed(id) {
   if (!confirm('Delete this medication?')) return;
-  meds = meds.filter(m => m.id !== id);
-  if (selectedMed?.id === id) {
-    selectedMed = null;
-    document.getElementById('calc-form-card').style.display = 'none';
+  meds = meds.filter(m=>m.id!==id);
+  // Remove from all other meds' drugContraIds
+  meds.forEach(m => { m.drugContraIds=(m.drugContraIds||[]).filter(x=>x!==id); });
+  if (selectedMed?.id===id) {
+    selectedMed=null;
+    document.getElementById('calc-form-card').style.display='none';
   }
+  sessionDrugIds = sessionDrugIds.filter(x=>x!==id);
+  renderSessionChips();
   save(); renderMedList(); toast('Deleted');
 }
 
@@ -971,12 +1449,13 @@ function deleteMed(id) {
 function renderHistory() {
   const list = document.getElementById('history-list');
   if (!calcHistory.length) {
-    list.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">No calculations yet</div></div>`;
+    list.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">No calculations yet</div></div>`;
     return;
   }
   list.innerHTML = calcHistory.map(h => {
     const d = new Date(h.time);
-    const timeStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    const timeStr = d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    const volDisplay = h.volDisplay || (h.vol!==null&&h.vol!==undefined ? h.vol.toFixed(3)+' ml' : '—');
     return `
     <div class="history-item">
       <div class="history-header">
@@ -984,126 +1463,108 @@ function renderHistory() {
         <div class="history-time">${timeStr}</div>
       </div>
       <div class="history-dose">${h.dose.toFixed(2)} mg</div>
-      <div class="history-vol">${h.vol !== null && h.vol !== undefined ? h.vol.toFixed(3) + ' ml' : '—'}</div>
-      <div class="history-detail">${h.species === 'dog' ? '🐶' : '🐱'} ${h.weight} ${h.unit} · ${h.route}${h.caseLabel && h.caseLabel !== 'Standard' ? ' · ' + h.caseLabel : ''}</div>
+      <div class="history-vol">${volDisplay}</div>
+      ${h.unitStr?`<div class="history-unit">💊 ${h.unitStr}</div>`:''}
+      <div class="history-detail">${h.species==='dog'?'🐶':'🐱'} ${h.weight} kg · ${h.route}${h.caseLabel&&h.caseLabel!=='Standard'?' · '+h.caseLabel:''}</div>
     </div>`;
   }).join('');
 }
 
 function clearHistory() {
   if (!confirm('Clear all history?')) return;
-  calcHistory = []; save(); renderHistory(); toast('History cleared');
+  calcHistory=[]; save(); renderHistory(); toast('History cleared');
 }
 
 // ─── SETTINGS ────────────────────────────────────────────
 function updateStats() {
-  document.getElementById('stat-meds').textContent = meds.length;
-  document.getElementById('stat-calcs').textContent = calcHistory.length;
+  document.getElementById('stat-meds').textContent=meds.length;
+  document.getElementById('stat-calcs').textContent=calcHistory.length;
 }
 
 function exportData() {
-  const data = { version: SCHEMA_VERSION, meds, history: calcHistory, exportedAt: new Date().toISOString() };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'vetdose-backup-v2.json';
-  a.click(); URL.revokeObjectURL(url);
+  const data={version:SCHEMA_VERSION,meds,history:calcHistory,exportedAt:new Date().toISOString()};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='vetdose-backup-v3.json';
+  a.click();URL.revokeObjectURL(url);
   toast('✅ Backup exported');
 }
 
 function importData(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
     try {
-      const data = JSON.parse(ev.target.result);
-      if (!Array.isArray(data.meds)) throw new Error();
-      // Migrate if old format
-      meds = migrateV1ToV2(data.meds);
-      calcHistory = data.history || [];
-      save(); updateStats(); renderMedList(); renderCalcList();
-      toast('✅ Backup imported & migrated');
-    } catch { toast('Invalid backup file', 'error'); }
+      const data=JSON.parse(ev.target.result);
+      if(!Array.isArray(data.meds)) throw new Error();
+      meds=migrateV1ToV2(data.meds);
+      calcHistory=data.history||[];
+      save();updateStats();renderMedList();renderCalcList();
+      toast('✅ Backup imported');
+    } catch { toast('Invalid backup file','error'); }
   };
   reader.readAsText(file);
-  e.target.value = '';
+  e.target.value='';
 }
 
 function clearAll() {
-  if (!confirm('Delete ALL data? This cannot be undone.')) return;
-  meds = []; calcHistory = []; save(); updateStats(); renderMedList(); renderCalcList();
+  if(!confirm('Delete ALL data? This cannot be undone.')) return;
+  meds=[];calcHistory=[];sessionDrugIds=[];save();updateStats();renderMedList();renderCalcList();renderSessionChips();
   toast('All data cleared');
 }
 
 function loadSamples() {
-  if (meds.length && !confirm('This will add sample meds to your existing list. Continue?')) return;
-  const samples = [
-    {
-      id: 's1', name: 'Amoxicillin', contraindications: ['Penicillin allergy'], notes: 'Give with food',
-      routes: [
-        { id: 'r_s1a', route: 'PO', species: 'both', concentrations: [50], cases: [{ id: 'c_s1a1', label: 'Standard', dose: 11 }, { id: 'c_s1a2', label: 'High dose', dose: 22 }] }
-      ]
-    },
-    {
-      id: 's2', name: 'Meloxicam', contraindications: ['Renal failure', 'GI ulceration', 'Concurrent NSAID use'], notes: 'Monitor renal function',
-      routes: [
-        { id: 'r_s2a', route: 'SC', species: 'dog', concentrations: [5], cases: [{ id: 'c_s2a1', label: 'Loading dose', dose: 0.2 }] },
-        { id: 'r_s2b', route: 'PO', species: 'dog', concentrations: [1.5, 5], cases: [{ id: 'c_s2b1', label: 'Maintenance', dose: 0.1 }] },
-        { id: 'r_s2c', route: 'SC', species: 'cat', concentrations: [5], cases: [{ id: 'c_s2c1', label: 'Single dose only', dose: 0.3 }] }
-      ]
-    },
-    {
-      id: 's3', name: 'Metronidazole', contraindications: [], notes: '',
-      routes: [
-        { id: 'r_s3a', route: 'PO', species: 'both', concentrations: [5], cases: [{ id: 'c_s3a1', label: 'Standard', dose: 15 }, { id: 'c_s3a2', label: 'Anaerobic infection', dose: 25 }] },
-        { id: 'r_s3b', route: 'IV', species: 'both', concentrations: [5], cases: [{ id: 'c_s3b1', label: 'Standard', dose: 15 }] }
-      ]
-    },
-    {
-      id: 's4', name: 'Dexamethasone', contraindications: ['Active infection', 'Diabetes mellitus'], notes: '',
-      routes: [
-        { id: 'r_s4a', route: 'IV', species: 'both', concentrations: [2], cases: [{ id: 'c_s4a1', label: 'Anti-inflammatory', dose: 0.1 }, { id: 'c_s4a2', label: 'Shock', dose: 1 }] },
-        { id: 'r_s4b', route: 'IM', species: 'both', concentrations: [2], cases: [{ id: 'c_s4b1', label: 'Standard', dose: 0.1 }] }
-      ]
-    },
-    {
-      id: 's5', name: 'Ketamine', contraindications: ['Hypertension', 'Hyperthyroidism'], notes: 'Induction only — use with sedative',
-      routes: [
-        { id: 'r_s5a', route: 'IV', species: 'both', concentrations: [50, 100], cases: [{ id: 'c_s5a1', label: 'Induction dog', dose: 5 }, { id: 'c_s5a2', label: 'Induction cat', dose: 7.5 }] },
-        { id: 'r_s5b', route: 'IM', species: 'both', concentrations: [50, 100], cases: [{ id: 'c_s5b1', label: 'Chemical restraint', dose: 10 }] }
-      ]
-    },
-    {
-      id: 's6', name: 'Furosemide', contraindications: ['Anuria', 'Severe electrolyte depletion'], notes: 'Monitor electrolytes',
-      routes: [
-        { id: 'r_s6a', route: 'IV', species: 'both', concentrations: [10], cases: [{ id: 'c_s6a1', label: 'Acute', dose: 2 }, { id: 'c_s6a2', label: 'Severe pulmonary oedema', dose: 4 }] },
-        { id: 'r_s6b', route: 'PO', species: 'both', concentrations: [10, 40], cases: [{ id: 'c_s6b1', label: 'Maintenance', dose: 2 }] }
-      ]
-    },
-    {
-      id: 's7', name: 'Butorphanol', contraindications: [], notes: 'Pre-med; partial opioid agonist',
-      routes: [
-        { id: 'r_s7a', route: 'IM', species: 'both', concentrations: [10], cases: [{ id: 'c_s7a1', label: 'Sedation/pre-med', dose: 0.2 }, { id: 'c_s7a2', label: 'Analgesia', dose: 0.4 }] },
-        { id: 'r_s7b', route: 'IV', species: 'both', concentrations: [10], cases: [{ id: 'c_s7b1', label: 'Sedation', dose: 0.2 }] }
-      ]
-    },
-    {
-      id: 's8', name: 'Enrofloxacin', contraindications: ['Growing animals < 12 months (dogs)', 'Seizure history'], notes: 'Avoid in young growing dogs',
-      routes: [
-        { id: 'r_s8a', route: 'PO', species: 'dog', concentrations: [50], cases: [{ id: 'c_s8a1', label: 'Standard', dose: 5 }, { id: 'c_s8a2', label: 'Severe infection', dose: 10 }] },
-        { id: 'r_s8b', route: 'SC', species: 'dog', concentrations: [50], cases: [{ id: 'c_s8b1', label: 'Standard', dose: 5 }] }
-      ]
-    }
+  if(meds.length&&!confirm('This will add sample meds to your existing list. Continue?')) return;
+  const samples=[
+    {id:'s1',name:'Amoxicillin',contraindications:['Penicillin allergy'],drugContraIds:[],notes:'Give with food',
+      routes:[{id:'r_s1a',route:'PO',species:'both',concentrations:[50],unitSize:250,cases:[{id:'c_s1a1',label:'Standard',dose:11},{id:'c_s1a2',label:'High dose',dose:22}]}]},
+    {id:'s2',name:'Meloxicam',contraindications:['Renal failure','GI ulceration','Concurrent NSAID use'],drugContraIds:['s6'],notes:'Monitor renal function',
+      routes:[
+        {id:'r_s2a',route:'SC',species:'dog',concentrations:[5],unitSize:null,cases:[{id:'c_s2a1',label:'Loading dose',dose:0.2}]},
+        {id:'r_s2b',route:'PO',species:'dog',concentrations:[1.5,5],unitSize:null,cases:[{id:'c_s2b1',label:'Maintenance',dose:0.1}]},
+        {id:'r_s2c',route:'SC',species:'cat',concentrations:[5],unitSize:null,cases:[{id:'c_s2c1',label:'Single dose only',dose:0.3}]}
+      ]},
+    {id:'s3',name:'Metronidazole',contraindications:[],drugContraIds:[],notes:'',
+      routes:[
+        {id:'r_s3a',route:'PO',species:'both',concentrations:[5],unitSize:200,cases:[{id:'c_s3a1',label:'Standard',dose:15},{id:'c_s3a2',label:'Anaerobic',dose:25}]},
+        {id:'r_s3b',route:'IV',species:'both',concentrations:[5],unitSize:null,cases:[{id:'c_s3b1',label:'Standard',dose:15}]}
+      ]},
+    {id:'s4',name:'Dexamethasone',contraindications:['Active infection','Diabetes mellitus'],drugContraIds:['s2'],notes:'',
+      routes:[
+        {id:'r_s4a',route:'IV',species:'both',concentrations:[2],unitSize:null,cases:[{id:'c_s4a1',label:'Anti-inflammatory',dose:0.1},{id:'c_s4a2',label:'Shock',dose:1}]},
+        {id:'r_s4b',route:'IM',species:'both',concentrations:[2],unitSize:null,cases:[{id:'c_s4b1',label:'Standard',dose:0.1}]}
+      ]},
+    {id:'s5',name:'Ketamine',contraindications:['Hypertension','Hyperthyroidism'],drugContraIds:[],notes:'Induction only — use with sedative',
+      routes:[
+        {id:'r_s5a',route:'IV',species:'both',concentrations:[50,100],unitSize:null,cases:[{id:'c_s5a1',label:'Induction dog',dose:5},{id:'c_s5a2',label:'Induction cat',dose:7.5}]},
+        {id:'r_s5b',route:'IM',species:'both',concentrations:[50,100],unitSize:null,cases:[{id:'c_s5b1',label:'Chemical restraint',dose:10}]}
+      ]},
+    {id:'s6',name:'Furosemide',contraindications:['Anuria','Severe electrolyte depletion'],drugContraIds:['s2'],notes:'Monitor electrolytes',
+      routes:[
+        {id:'r_s6a',route:'IV',species:'both',concentrations:[10],unitSize:null,cases:[{id:'c_s6a1',label:'Acute',dose:2},{id:'c_s6a2',label:'Severe oedema',dose:4}]},
+        {id:'r_s6b',route:'PO',species:'both',concentrations:[10,40],unitSize:40,cases:[{id:'c_s6b1',label:'Maintenance',dose:2}]}
+      ]},
+    {id:'s7',name:'Butorphanol',contraindications:[],drugContraIds:[],notes:'Pre-med; partial opioid agonist',
+      routes:[
+        {id:'r_s7a',route:'IM',species:'both',concentrations:[10],unitSize:null,cases:[{id:'c_s7a1',label:'Sedation/pre-med',dose:0.2},{id:'c_s7a2',label:'Analgesia',dose:0.4}]},
+        {id:'r_s7b',route:'IV',species:'both',concentrations:[10],unitSize:null,cases:[{id:'c_s7b1',label:'Sedation',dose:0.2}]}
+      ]},
+    {id:'s8',name:'Enrofloxacin',contraindications:['Growing animals < 12 months (dogs)','Seizure history'],drugContraIds:[],notes:'Avoid in young growing dogs',
+      routes:[
+        {id:'r_s8a',route:'PO',species:'dog',concentrations:[50],unitSize:50,cases:[{id:'c_s8a1',label:'Standard',dose:5},{id:'c_s8a2',label:'Severe infection',dose:10}]},
+        {id:'r_s8b',route:'SC',species:'dog',concentrations:[50],unitSize:null,cases:[{id:'c_s8b1',label:'Standard',dose:5}]}
+      ]}
   ];
-  const existingIds = new Set(meds.map(m => m.id));
-  samples.filter(s => !existingIds.has(s.id)).forEach(s => meds.push(s));
-  save(); updateStats(); renderMedList(); renderCalcList();
-  toast('✅ Sample medications loaded');
+  const existingIds=new Set(meds.map(m=>m.id));
+  samples.filter(s=>!existingIds.has(s.id)).forEach(s=>meds.push(s));
+  save();updateStats();renderMedList();renderCalcList();
+  toast('✅ Sample medications loaded (with drug interactions pre-configured)');
 }
 
 // ─── INIT ─────────────────────────────────────────────────
 loadData();
 renderCalcList();
+renderSessionChips();
 </script>
 </body>
 </html>
