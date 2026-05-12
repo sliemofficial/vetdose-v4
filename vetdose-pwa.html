@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>VetDose</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1f2436;
+    --border: #2a3050;
+    --accent: #4af0b0;
+    --accent2: #4a9ff0;
+    --warn: #f0a84a;
+    --danger: #f04a6a;
+    --text: #e8eaf2;
+    --muted: #6b7399;
+    --cat: #c084fc;
+    --dog: #4a9ff0;
+    --both: #4af0b0;
+    --radius: 12px;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding-bottom: 90px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .header-title { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+  .header-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    padding: 16px 20px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .tab:not(.active):hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PAGES */
+  .page { display: none; padding: 20px; }
+  .page.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* INPUTS */
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  input, select, textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+  input:focus, select:focus { border-color: var(--accent); }
+  input::placeholder { color: var(--muted); }
+  select option { background: var(--surface2); }
+
+  /* SPECIES TOGGLE */
+  .species-toggle {
+    display: flex; gap: 8px;
+  }
+  .species-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .species-btn.dog.active { background: rgba(74,159,240,0.15); border-color: var(--dog); color: var(--dog); }
+  .species-btn.cat.active { background: rgba(192,132,252,0.15); border-color: var(--cat); color: var(--cat); }
+  .species-btn.both.active { background: rgba(74,240,176,0.15); border-color: var(--both); color: var(--both); }
+
+  /* BUTTONS */
+  .btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary { background: var(--accent); color: var(--bg); }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-danger { background: rgba(240,74,106,0.15); color: var(--danger); border: 1px solid var(--danger); }
+  .btn-sm { padding: 8px 14px; font-size: 13px; width: auto; }
+
+  /* RESULT BOX */
+  .result-box {
+    background: linear-gradient(135deg, rgba(74,240,176,0.1), rgba(74,159,240,0.1));
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-top: 16px;
+    display: none;
+  }
+  .result-box.show { display: block; }
+  .result-main {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+    font-family: var(--mono);
+    letter-spacing: -1px;
+  }
+  .result-sub {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent2);
+    font-family: var(--mono);
+    margin-top: 4px;
+  }
+  .result-meta {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .result-meta-item {
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .result-meta-item .label { font-size: 10px; color: var(--muted); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .result-meta-item .val { font-size: 14px; font-weight: 600; font-family: var(--mono); margin-top: 2px; }
+  .route-badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* MED LIST */
+  .search-bar {
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .search-bar input { padding-left: 40px; }
+  .search-icon {
+    position: absolute;
+    left: 13px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  .med-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .med-item:hover { border-color: var(--accent); }
+  .med-item.selected { border-color: var(--accent); background: rgba(74,240,176,0.07); }
+
+  .species-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .species-dot.dog { background: var(--dog); }
+  .species-dot.cat { background: var(--cat); }
+  .species-dot.both { background: var(--both); }
+
+  .med-name { font-size: 15px; font-weight: 700; flex: 1; }
+  .med-meta { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+  .med-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+  .tag.dog { background: rgba(74,159,240,0.15); color: var(--dog); }
+  .tag.cat { background: rgba(192,132,252,0.15); color: var(--cat); }
+  .tag.both { background: rgba(74,240,176,0.15); color: var(--both); }
+  .tag.route { background: rgba(107,115,153,0.2); color: var(--muted); }
+
+  .med-actions { display: flex; gap: 8px; }
+  .icon-btn {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+  .icon-btn:hover.del { border-color: var(--danger); color: var(--danger); background: rgba(240,74,106,0.1); }
+  .icon-btn:hover.edit { border-color: var(--accent2); color: var(--accent2); background: rgba(74,159,240,0.1); }
+
+  /* HISTORY */
+  .history-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .history-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .history-drug { font-size: 15px; font-weight: 700; }
+  .history-time { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+  .history-dose { font-size: 22px; font-weight: 800; font-family: var(--mono); color: var(--accent); margin-top: 4px; }
+  .history-vol { font-size: 14px; font-family: var(--mono); color: var(--accent2); }
+  .history-detail { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  /* EMPTY STATE */
+  .empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+  }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-text { font-size: 14px; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    display: none;
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--surface);
+    border-radius: 20px 20px 0 0;
+    border-top: 1px solid var(--border);
+    padding: 24px 20px 40px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal-handle {
+    width: 40px; height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+  .modal-title { font-size: 18px; font-weight: 800; margin-bottom: 20px; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 100px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 999;
+    opacity: 0;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: var(--accent); color: var(--accent); }
+  .toast.error { border-color: var(--danger); color: var(--danger); }
+
+  /* NAV */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex;
+    padding: 8px 0 20px;
+    z-index: 100;
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--muted);
+    transition: color 0.2s;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .nav-item.active { color: var(--accent); }
+  .nav-icon { font-size: 20px; }
+
+  .divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+  /* STATS */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .stat-card {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid var(--border);
+  }
+  .stat-val { font-size: 28px; font-weight: 800; font-family: var(--mono); color: var(--accent); }
+  .stat-label { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 2px; letter-spacing: 0.5px; }
+
+  /* WARNING */
+  .warning-box {
+    background: rgba(240,168,74,0.1);
+    border: 1px solid var(--warn);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--warn);
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .section-title { font-size: 16px; font-weight: 800; }
+
+  /* unit toggle */
+  .unit-toggle {
+    display: flex;
+    gap: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .unit-btn {
+    flex: 1;
+    padding: 9px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .unit-btn.active { background: var(--accent); color: var(--bg); }
+
+  .calc-step {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .calc-step span { color: var(--text); }
+</style>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VetDose">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">🐾</div>
+  <div>
+    <div class="header-title">VetDose</div>
+    <div class="header-sub">Dosage Calculator</div>
+  </div>
+</div>
+
+<!-- CALCULATE PAGE -->
+<div class="page active" id="page-calc">
+  <div class="card">
+    <div class="card-title">Select Medication</div>
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="calc-search" placeholder="Search medications..." oninput="filterCalcMeds()">
+    </div>
+    <div id="calc-med-list"></div>
+  </div>
+
+  <div class="card" id="calc-form-card" style="display:none">
+    <div class="card-title">Patient Details</div>
+    <div id="selected-med-info" style="margin-bottom:16px"></div>
+
+    <div class="field">
+      <label>ANIMAL TYPE</label>
+      <div class="species-toggle" id="calc-species-toggle"></div>
+    </div>
+
+    <div class="field">
+      <label>WEIGHT UNIT</label>
+      <div class="unit-toggle">
+        <button class="unit-btn active" id="unit-kg" onclick="setUnit('kg')">kg</button>
+        <button class="unit-btn" id="unit-lbs" onclick="setUnit('lbs')">lbs</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label id="weight-label">WEIGHT (kg)</label>
+      <input type="number" id="calc-weight" placeholder="e.g. 5.5" step="0.1" min="0.1">
+    </div>
+
+    <button class="btn btn-primary" onclick="calculate()">Calculate Dose</button>
+
+    <div class="result-box" id="result-box">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px">Result</div>
+      <div class="result-main" id="res-dose">—</div>
+      <div class="result-sub" id="res-vol">—</div>
+      <div class="result-meta">
+        <div class="result-meta-item">
+          <div class="label">Drug</div>
+          <div class="val" id="res-drug">—</div>
+        </div>
+        <div class="result-meta-item">
+          <div class="label">Species</div>
+          <div class="val" id="res-species">—</div>
+        </div>
+        <div class="result-meta-item">
+          <div class="label">Weight</div>
+          <div class="val" id="res-weight">—</div>
+        </div>
+        <div class="result-meta-item">
+          <div class="label">Dose/kg</div>
+          <div class="val" id="res-dosekg">—</div>
+        </div>
+      </div>
+      <div id="res-route-badge"></div>
+      <div id="res-calc-steps"></div>
+      <div class="warning-box" style="margin-top:12px">
+        <span>⚠️</span>
+        <span>Always verify dosages. This tool is a clinical aid — not a replacement for professional judgment.</span>
+      </div>
+      <button class="btn btn-secondary" style="margin-top:12px" onclick="saveToHistory()">💾 Save to History</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEDICATIONS PAGE -->
+<div class="page" id="page-meds">
+  <div class="section-header">
+    <div class="section-title">Medications</div>
+    <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Add</button>
+  </div>
+
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="meds-search" placeholder="Search..." oninput="renderMedList()">
+  </div>
+
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="tab active" id="filter-all" onclick="setFilter('all')">All</button>
+    <button class="tab" id="filter-dog" onclick="setFilter('dog')">🐶 Dogs</button>
+    <button class="tab" id="filter-cat" onclick="setFilter('cat')">🐱 Cats</button>
+    <button class="tab" id="filter-both" onclick="setFilter('both')">Both</button>
+  </div>
+
+  <div id="med-list"></div>
+</div>
+
+<!-- HISTORY PAGE -->
+<div class="page" id="page-history">
+  <div class="section-header">
+    <div class="section-title">Calculation History</div>
+    <button class="btn btn-danger btn-sm" onclick="clearHistory()">Clear</button>
+  </div>
+  <div id="history-list"></div>
+</div>
+
+<!-- SETTINGS PAGE -->
+<div class="page" id="page-settings">
+  <div class="card">
+    <div class="card-title">Database</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val" id="stat-meds">0</div>
+        <div class="stat-label">Medications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-calcs">0</div>
+        <div class="stat-label">Calculations</div>
+      </div>
+    </div>
+    <button class="btn btn-secondary" style="margin-bottom:10px" onclick="exportData()">📤 Export Backup (JSON)</button>
+    <label class="btn btn-secondary" style="display:block;text-align:center;cursor:pointer">
+      📥 Import Backup (JSON)
+      <input type="file" accept=".json" style="display:none" onchange="importData(event)">
+    </label>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Preload Sample Meds</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Load a set of common veterinary medications to get started quickly.</p>
+    <button class="btn btn-secondary" onclick="loadSamples()">🧪 Load Sample Medications</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Danger Zone</div>
+    <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear All Data</button>
+  </div>
+
+  <div style="text-align:center;color:var(--muted);font-size:11px;font-family:var(--mono);padding:20px 0">
+    VetDose v1.0 · Add to Home Screen for app experience
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item active" id="nav-calc" onclick="showPage('calc')">
+    <div class="nav-icon">💊</div>
+    <span>Calculate</span>
+  </div>
+  <div class="nav-item" id="nav-meds" onclick="showPage('meds')">
+    <div class="nav-icon">🗂️</div>
+    <span>Medications</span>
+  </div>
+  <div class="nav-item" id="nav-history" onclick="showPage('history')">
+    <div class="nav-icon">📋</div>
+    <span>History</span>
+  </div>
+  <div class="nav-item" id="nav-settings" onclick="showPage('settings')">
+    <div class="nav-icon">⚙️</div>
+    <span>Settings</span>
+  </div>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay" id="med-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-title">Add Medication</div>
+
+    <div class="field">
+      <label>MEDICATION NAME</label>
+      <input type="text" id="m-name" placeholder="e.g. Amoxicillin">
+    </div>
+    <div class="field">
+      <label>SPECIES</label>
+      <div class="species-toggle">
+        <button class="species-btn dog" onclick="selectModalSpecies('dog')">🐶 Dog</button>
+        <button class="species-btn cat" onclick="selectModalSpecies('cat')">🐱 Cat</button>
+        <button class="species-btn both" onclick="selectModalSpecies('both')">Both</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>DOSE (mg/kg)</label>
+      <input type="number" id="m-dose" placeholder="e.g. 10" step="0.01" min="0">
+    </div>
+    <div class="field">
+      <label>CONCENTRATION (mg/ml)</label>
+      <input type="number" id="m-conc" placeholder="e.g. 50" step="0.01" min="0">
+    </div>
+    <div class="field">
+      <label>ROUTE OF ADMINISTRATION</label>
+      <select id="m-route">
+        <option value="PO">PO – Oral</option>
+        <option value="IV">IV – Intravenous</option>
+        <option value="IM">IM – Intramuscular</option>
+        <option value="SC">SC – Subcutaneous</option>
+        <option value="TOP">TOP – Topical</option>
+        <option value="IN">IN – Intranasal</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>NOTES (optional)</label>
+      <input type="text" id="m-notes" placeholder="e.g. Give with food">
+    </div>
+
+    <button class="btn btn-primary" style="margin-bottom:10px" onclick="saveMed()">Save Medication</button>
+    <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────
+let meds = JSON.parse(localStorage.getItem('vetdose_meds') || '[]');
+let history = JSON.parse(localStorage.getItem('vetdose_history') || '[]');
+let selectedMed = null;
+let calcSpecies = null;
+let weightUnit = 'kg';
+let medFilter = 'all';
+let editingId = null;
+let modalSpecies = 'dog';
+
+// ─── ROUTING ─────────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  if (name === 'meds') renderMedList();
+  if (name === 'history') renderHistory();
+  if (name === 'calc') renderCalcList();
+  if (name === 'settings') updateStats();
+}
+
+// ─── SAVE ─────────────────────────────────────────────────
+function save() {
+  localStorage.setItem('vetdose_meds', JSON.stringify(meds));
+  localStorage.setItem('vetdose_history', JSON.stringify(history));
+}
+
+// ─── TOAST ───────────────────────────────────────────────
+function toast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 2500);
+}
+
+// ─── CALCULATE PAGE ───────────────────────────────────────
+function renderCalcList() {
+  const q = document.getElementById('calc-search').value.toLowerCase();
+  const list = document.getElementById('calc-med-list');
+  const filtered = meds.filter(m => m.name.toLowerCase().includes(q));
+  if (!filtered.length) {
+    list.innerHTML = `<div class="empty"><div class="empty-icon">💊</div><div class="empty-text">${meds.length ? 'No match' : 'No medications yet. Add some first!'}</div></div>`;
+    return;
+  }
+  list.innerHTML = filtered.map(m => `
+    <div class="med-item ${selectedMed?.id === m.id ? 'selected' : ''}" onclick="selectMed('${m.id}')">
+      <div class="species-dot ${m.species}"></div>
+      <div style="flex:1">
+        <div class="med-name">${m.name}</div>
+        <div class="med-tags">
+          <span class="tag ${m.species}">${m.species === 'both' ? '🐾 Both' : m.species === 'dog' ? '🐶 Dog' : '🐱 Cat'}</span>
+          <span class="tag route">${m.route}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCalcMeds() { renderCalcList(); }
+
+function selectMed(id) {
+  selectedMed = meds.find(m => m.id === id);
+  renderCalcList();
+  const card = document.getElementById('calc-form-card');
+  card.style.display = 'block';
+  document.getElementById('result-box').classList.remove('show');
+
+  // species toggle
+  const toggle = document.getElementById('calc-species-toggle');
+  const options = selectedMed.species === 'both' ? ['dog','cat'] : [selectedMed.species];
+  toggle.innerHTML = options.map(s => `
+    <button class="species-btn ${s} ${options.length === 1 ? 'active' : ''}" onclick="selectCalcSpecies('${s}')">
+      ${s === 'dog' ? '🐶 Dog' : '🐱 Cat'}
+    </button>
+  `).join('');
+  calcSpecies = options.length === 1 ? options[0] : null;
+
+  document.getElementById('selected-med-info').innerHTML = `
+    <div style="background:var(--surface2);border-radius:10px;padding:12px 14px">
+      <div style="font-size:17px;font-weight:800">${selectedMed.name}</div>
+      <div style="font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:4px">${selectedMed.dose} mg/kg · ${selectedMed.conc} mg/ml · ${selectedMed.route}</div>
+      ${selectedMed.notes ? `<div style="font-size:12px;color:var(--warn);margin-top:4px">ℹ️ ${selectedMed.notes}</div>` : ''}
+    </div>
+  `;
+
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function selectCalcSpecies(s) {
+  calcSpecies = s;
+  document.querySelectorAll('#calc-species-toggle .species-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function setUnit(u) {
+  weightUnit = u;
+  document.getElementById('unit-kg').classList.toggle('active', u === 'kg');
+  document.getElementById('unit-lbs').classList.toggle('active', u === 'lbs');
+  document.getElementById('weight-label').textContent = `WEIGHT (${u})`;
+}
+
+function calculate() {
+  if (!selectedMed) return toast('Select a medication first', 'error');
+  if (!calcSpecies) return toast('Select animal type', 'error');
+  const rawW = parseFloat(document.getElementById('calc-weight').value);
+  if (!rawW || rawW <= 0) return toast('Enter a valid weight', 'error');
+
+  const weightKg = weightUnit === 'lbs' ? rawW * 0.453592 : rawW;
+  const doseMg = selectedMed.dose * weightKg;
+  const volMl = doseMg / selectedMed.conc;
+
+  document.getElementById('res-dose').textContent = doseMg.toFixed(2) + ' mg';
+  document.getElementById('res-vol').textContent = volMl.toFixed(3) + ' ml';
+  document.getElementById('res-drug').textContent = selectedMed.name;
+  document.getElementById('res-species').textContent = calcSpecies === 'dog' ? '🐶 Dog' : '🐱 Cat';
+  document.getElementById('res-weight').textContent = rawW + ' ' + weightUnit + (weightUnit === 'lbs' ? ` (${weightKg.toFixed(2)} kg)` : '');
+  document.getElementById('res-dosekg').textContent = selectedMed.dose + ' mg/kg';
+
+  const routeColors = { IV:'#f04a6a', IM:'#f0a84a', SC:'#4af0b0', PO:'#4a9ff0', TOP:'#c084fc', IN:'#60d9fa' };
+  const color = routeColors[selectedMed.route] || 'var(--muted)';
+  document.getElementById('res-route-badge').innerHTML = `<span class="route-badge" style="background:${color}22;color:${color};border:1px solid ${color}">${selectedMed.route}</span>`;
+
+  document.getElementById('res-calc-steps').innerHTML = `
+    <div class="calc-step">
+      <span>${weightKg.toFixed(3)} kg</span> × <span>${selectedMed.dose} mg/kg</span> = <span>${doseMg.toFixed(2)} mg</span><br>
+      <span>${doseMg.toFixed(2)} mg</span> ÷ <span>${selectedMed.conc} mg/ml</span> = <span>${volMl.toFixed(3)} ml</span>
+    </div>
+  `;
+
+  document.getElementById('result-box').classList.add('show');
+
+  // auto-save
+  const entry = {
+    id: Date.now().toString(),
+    drug: selectedMed.name,
+    species: calcSpecies,
+    weight: rawW,
+    unit: weightUnit,
+    weightKg,
+    dose: doseMg,
+    vol: volMl,
+    route: selectedMed.route,
+    time: new Date().toISOString()
+  };
+  history.unshift(entry);
+  if (history.length > 100) history.pop();
+  save();
+}
+
+function saveToHistory() { toast('✅ Already saved to history!'); }
+
+// ─── MED LIST PAGE ────────────────────────────────────────
+function setFilter(f) {
+  medFilter = f;
+  ['all','dog','cat','both'].forEach(x => document.getElementById('filter-'+x)?.classList.toggle('active', x === f));
+  renderMedList();
+}
+
+function renderMedList() {
+  const q = document.getElementById('meds-search').value.toLowerCase();
+  let filtered = meds.filter(m => {
+    const matchQ = m.name.toLowerCase().includes(q);
+    const matchF = medFilter === 'all' || m.species === medFilter || (medFilter !== 'both' && m.species === 'both');
+    return matchQ && matchF;
+  });
+
+  const list = document.getElementById('med-list');
+  if (!filtered.length) {
+    list.innerHTML = `<div class="empty"><div class="empty-icon">🗂️</div><div class="empty-text">${meds.length ? 'No match' : 'No medications yet. Tap + Add to get started.'}</div></div>`;
+    return;
+  }
+  list.innerHTML = filtered.map(m => `
+    <div class="med-item">
+      <div class="species-dot ${m.species}"></div>
+      <div style="flex:1">
+        <div class="med-name">${m.name}</div>
+        <div style="font-size:12px;color:var(--muted);font-family:var(--mono)">${m.dose} mg/kg · ${m.conc} mg/ml</div>
+        <div class="med-tags">
+          <span class="tag ${m.species}">${m.species === 'both' ? '🐾 Both' : m.species === 'dog' ? '🐶 Dog' : '🐱 Cat'}</span>
+          <span class="tag route">${m.route}</span>
+        </div>
+        ${m.notes ? `<div style="font-size:11px;color:var(--warn);margin-top:4px">ℹ️ ${m.notes}</div>` : ''}
+      </div>
+      <div class="med-actions">
+        <div class="icon-btn edit" onclick="openEditModal('${m.id}')">✏️</div>
+        <div class="icon-btn del" onclick="deleteMed('${m.id}')">🗑️</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── MODAL ────────────────────────────────────────────────
+function openAddModal() {
+  editingId = null;
+  document.getElementById('modal-title').textContent = 'Add Medication';
+  document.getElementById('m-name').value = '';
+  document.getElementById('m-dose').value = '';
+  document.getElementById('m-conc').value = '';
+  document.getElementById('m-route').value = 'PO';
+  document.getElementById('m-notes').value = '';
+  modalSpecies = 'dog';
+  document.querySelectorAll('.modal .species-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.modal .species-btn.dog').classList.add('active');
+  document.getElementById('med-modal').classList.add('show');
+}
+
+function openEditModal(id) {
+  const m = meds.find(x => x.id === id);
+  if (!m) return;
+  editingId = id;
+  document.getElementById('modal-title').textContent = 'Edit Medication';
+  document.getElementById('m-name').value = m.name;
+  document.getElementById('m-dose').value = m.dose;
+  document.getElementById('m-conc').value = m.conc;
+  document.getElementById('m-route').value = m.route;
+  document.getElementById('m-notes').value = m.notes || '';
+  modalSpecies = m.species;
+  document.querySelectorAll('.modal .species-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.modal .species-btn.${m.species}`)?.classList.add('active');
+  document.getElementById('med-modal').classList.add('show');
+}
+
+function selectModalSpecies(s) {
+  modalSpecies = s;
+  document.querySelectorAll('.modal .species-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.modal .species-btn.${s}`)?.classList.add('active');
+}
+
+function closeModal() { document.getElementById('med-modal').classList.remove('show'); }
+
+function saveMed() {
+  const name = document.getElementById('m-name').value.trim();
+  const dose = parseFloat(document.getElementById('m-dose').value);
+  const conc = parseFloat(document.getElementById('m-conc').value);
+  const route = document.getElementById('m-route').value;
+  const notes = document.getElementById('m-notes').value.trim();
+
+  if (!name) return toast('Enter medication name', 'error');
+  if (!dose || dose <= 0) return toast('Enter valid dose', 'error');
+  if (!conc || conc <= 0) return toast('Enter valid concentration', 'error');
+
+  if (editingId) {
+    const idx = meds.findIndex(m => m.id === editingId);
+    meds[idx] = { ...meds[idx], name, species: modalSpecies, dose, conc, route, notes };
+    toast('✅ Medication updated');
+  } else {
+    meds.push({ id: Date.now().toString(), name, species: modalSpecies, dose, conc, route, notes });
+    toast('✅ Medication added');
+  }
+  save();
+  closeModal();
+  renderMedList();
+}
+
+function deleteMed(id) {
+  if (!confirm('Delete this medication?')) return;
+  meds = meds.filter(m => m.id !== id);
+  if (selectedMed?.id === id) { selectedMed = null; document.getElementById('calc-form-card').style.display = 'none'; }
+  save();
+  renderMedList();
+  toast('Deleted');
+}
+
+// ─── HISTORY ─────────────────────────────────────────────
+function renderHistory() {
+  const list = document.getElementById('history-list');
+  if (!history.length) {
+    list.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">No calculations yet</div></div>`;
+    return;
+  }
+  list.innerHTML = history.map(h => {
+    const d = new Date(h.time);
+    const timeStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    return `
+    <div class="history-item">
+      <div class="history-header">
+        <div class="history-drug">${h.drug}</div>
+        <div class="history-time">${timeStr}</div>
+      </div>
+      <div class="history-dose">${h.dose.toFixed(2)} mg</div>
+      <div class="history-vol">${h.vol.toFixed(3)} ml</div>
+      <div class="history-detail">${h.species === 'dog' ? '🐶' : '🐱'} ${h.weight} ${h.unit} · ${h.route}</div>
+    </div>
+  `}).join('');
+}
+
+function clearHistory() {
+  if (!confirm('Clear all history?')) return;
+  history = [];
+  save();
+  renderHistory();
+  toast('History cleared');
+}
+
+// ─── SETTINGS ────────────────────────────────────────────
+function updateStats() {
+  document.getElementById('stat-meds').textContent = meds.length;
+  document.getElementById('stat-calcs').textContent = history.length;
+}
+
+function exportData() {
+  const data = { meds, history, exportedAt: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'vetdose-backup.json';
+  a.click(); URL.revokeObjectURL(url);
+  toast('✅ Backup exported');
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!Array.isArray(data.meds)) throw new Error();
+      meds = data.meds;
+      history = data.history || [];
+      save();
+      updateStats();
+      toast('✅ Backup imported');
+    } catch { toast('Invalid backup file', 'error'); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+function clearAll() {
+  if (!confirm('Delete ALL data? This cannot be undone.')) return;
+  meds = []; history = [];
+  save(); updateStats();
+  toast('All data cleared');
+}
+
+function loadSamples() {
+  if (meds.length && !confirm('This will add sample meds to your existing list. Continue?')) return;
+  const samples = [
+    { id: 's1', name: 'Amoxicillin', species: 'both', dose: 11, conc: 50, route: 'PO', notes: 'Give with food' },
+    { id: 's2', name: 'Meloxicam', species: 'dog', dose: 0.2, conc: 5, route: 'SC', notes: 'Loading dose' },
+    { id: 's3', name: 'Meloxicam', species: 'cat', dose: 0.3, conc: 5, route: 'SC', notes: 'Single dose only' },
+    { id: 's4', name: 'Metronidazole', species: 'both', dose: 15, conc: 5, route: 'PO', notes: '' },
+    { id: 's5', name: 'Dexamethasone', species: 'both', dose: 0.1, conc: 2, route: 'IV', notes: '' },
+    { id: 's6', name: 'Ketamine', species: 'both', dose: 5, conc: 50, route: 'IM', notes: 'Induction only' },
+    { id: 's7', name: 'Butorphanol', species: 'both', dose: 0.2, conc: 10, route: 'IM', notes: 'Pre-med' },
+    { id: 's8', name: 'Enrofloxacin', species: 'dog', dose: 5, conc: 50, route: 'PO', notes: '' },
+    { id: 's9', name: 'Atenolol', species: 'cat', dose: 6.25, conc: 25, route: 'PO', notes: 'Cardiac' },
+    { id: 's10', name: 'Furosemide', species: 'both', dose: 2, conc: 10, route: 'IV', notes: '' },
+  ];
+  const existingIds = new Set(meds.map(m => m.id));
+  samples.filter(s => !existingIds.has(s.id)).forEach(s => meds.push(s));
+  save(); updateStats();
+  toast('✅ Sample medications loaded');
+}
+
+// ─── INIT ─────────────────────────────────────────────────
+renderCalcList();
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js");
+}
+</script>
+
+</body>
+</html>
